@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19" fx:controller="com.btl.quanlythuvien.GiaoDienKhachHangController">
+    <children>
+        <ImageView fitHeight="400.0" fitWidth="758.0" layoutX="-150.0" pickOnBounds="true">
+            <image>
+                <Image url="@../../../com.btl.pictures/background.jpg" />
+            </image>
+        </ImageView>
+        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="-1.0" prefHeight="49.0" prefWidth="600.0" text="CHỌN LOẠI DỊCH VỤ" textAlignment="JUSTIFY" textFill="#050505" textOverrun="WORD_ELLIPSIS">
+            <font>
+                <Font size="31.0" />
+            </font>
+        </Label>
+        <HBox layoutY="103.0" prefHeight="158.0" prefWidth="602.0">
+            <children>
+                <ImageView fx:id="imgThongTinDatSach" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../com.btl.pictures/datsach.jpg" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="100.0" />
+                    </HBox.margin>
+                </ImageView>
+                <ImageView fx:id="imgDatSach" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../com.btl.pictures/sachdadat.jpg" />
+                    </image>
+                    <HBox.margin>
+                        <Insets left="100.0" />
+                    </HBox.margin>
+                </ImageView>
+            </children>
+        </HBox>
+        <Text layoutX="99.0" layoutY="281.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đặt sách" textAlignment="CENTER" wrappingWidth="156.53667449951172">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Text>
+        <Text layoutX="349.0" layoutY="282.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Thông tin sách đã đặt" textAlignment="CENTER" wrappingWidth="156.53667449951172">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Text>
+    </children>
+</AnchorPane>

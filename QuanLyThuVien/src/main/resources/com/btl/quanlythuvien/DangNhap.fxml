@@ -9,8 +9,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/19">
-    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="AnchorPane" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.btl.quanlythuvien.DangNhapController">
+    <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
         <children>
             <Label contentDisplay="CENTER" layoutX="114.0" layoutY="22.0" styleClass="Title" text="ĐĂNG NHẬP" textFill="#e80505">
                 <font>
@@ -43,12 +43,12 @@
                     <PasswordField fx:id="tfMatKhau" prefHeight="35.0" promptText="Mật khẩu tối thiểu 6 ký tự" />
                 </children>
             </VBox>
-            <Button id="btnDangKy" layoutX="211.0" layoutY="222.0" minHeight="30.0" mnemonicParsing="false" onAction="#btnDangKy" prefHeight="40.0" prefWidth="161.0" text="Đăng Ký" textAlignment="CENTER" textFill="#e80505">
+            <Button id="btn_DangKy" fx:id="btn_Dangky" layoutX="211.0" layoutY="222.0" minHeight="30.0" mnemonicParsing="false"   onAction="#btnDangKy"     prefHeight="40.0" prefWidth="161.0" text="Đăng Ký" textAlignment="CENTER" textFill="#e80505">
                 <font>
                     <Font name="System Bold" size="15.0" />
                 </font>
             </Button>
-            <Button id="btn_DangNhap" layoutX="27.0" layoutY="222.0" mnemonicParsing="false" onAction="#btnDangNhap" prefHeight="40.0" prefWidth="161.0" text="Đăng Nhập" textAlignment="CENTER" textFill="#e80505">
+            <Button id="btn_DangNhap" fx:id="btn_DangNhap" layoutX="27.0" layoutY="222.0" mnemonicParsing="false"  prefHeight="40.0" prefWidth="161.0" text="Đăng Nhập" textAlignment="CENTER" textFill="#e80505">
                 <font>
                     <Font name="System Bold" size="15.0" />
                 </font>
