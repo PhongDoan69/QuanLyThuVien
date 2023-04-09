@@ -97,7 +97,7 @@ public class DangNhapController implements Initializable {
                              KhachHangServices kh = new KhachHangServices();
                              Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
                              FXMLLoader loader = new FXMLLoader();
-                             loader.setLocation(getClass().getResource("FGiaoDienKH.fxml"));
+                             loader.setLocation(getClass().getResource("GiaoDienKhachHang.fxml"));
                              Parent d = loader.load();
                              Scene scene = new Scene(d);
                              GiaoDienKhachHangController controller = loader.getController();

@@ -17,6 +17,19 @@ public class KhachHang {
     private int MaAcc;
     private String SDT;
 
+    public KhachHang(){
+        
+    }
+    
+    public KhachHang(int maKH, String TenKH, String CMND, String DiaChi, String GioiTinh, int MaAcc, String SDT) {
+        this.MaKH = maKH;
+        this.TenKH = TenKH;
+        this.CMND = CMND;
+        this.DiaChi = DiaChi;
+        this.GioiTinh = GioiTinh;
+        this.MaAcc = MaAcc;
+        this.SDT = SDT;
+    }
     public int getMaKH() {
         return MaKH;
     }
@@ -72,5 +85,8 @@ public class KhachHang {
     public void setSDT(String SDT) {
         this.SDT = SDT;
     }
-    
+    public String ToString()
+    {
+        return this.MaKH +this.TenKH +this.CMND +this.DiaChi +this.GioiTinh + this.MaAcc + this.SDT; 
+    }
 }
