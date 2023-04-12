@@ -19,7 +19,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("DangNhap.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("ThongTinDatSach.fxml"));
 
         Scene scene = null;
         try {
