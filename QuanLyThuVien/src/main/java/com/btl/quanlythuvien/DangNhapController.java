@@ -9,7 +9,7 @@ import com.btl.conf.Utils;
 import com.btl.pojo.Account;
 
 import com.btl.services.AccountServices;
-import com.btl.services.KhachHangServices;
+import com.btl.services.ReaderServices;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -75,7 +75,7 @@ public class DangNhapController implements Initializable {
     
     public void btnDangNhap (ActionEvent event)throws SQLException,  IOException{
        HashPassword hp= new HashPassword();
-       KhachHangServices ks=new KhachHangServices();
+       ReaderServices ks=new ReaderServices();
        Account a= new Account();       
        AccountServices s= new AccountServices();
         
@@ -94,14 +94,14 @@ public class DangNhapController implements Initializable {
         if(!((tfTaiKhoan).getText().isEmpty() || (tfMatKhau).getText().isEmpty()||tfMatKhau.getText().equals("")||tfTaiKhoan.getText().equals(""))){
                       if(check && s.checkACCOUNT(a)==1){
                              login=true;
-                             KhachHangServices kh = new KhachHangServices();
+                             ReaderServices kh = new ReaderServices();
                              Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
                              FXMLLoader loader = new FXMLLoader();
                              loader.setLocation(getClass().getResource("GiaoDienKhachHang.fxml"));
                              Parent d = loader.load();
                              Scene scene = new Scene(d);
                              GiaoDienKhachHangController controller = loader.getController();
-                             controller.setK(kh.getKhachHangByAccount(u));
+                             controller.setK(kh.getReaderByUsername(u));
                              stage.setScene(scene); 
                       } 
              else 

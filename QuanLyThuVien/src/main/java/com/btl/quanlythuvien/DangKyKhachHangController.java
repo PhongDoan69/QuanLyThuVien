@@ -8,10 +8,10 @@ import com.btl.conf.HashPassword;
 import com.btl.conf.Utils;
 
 import com.btl.pojo.Account;
-import com.btl.pojo.KhachHang;
+import com.btl.pojo.Reader;
 
 import com.btl.services.AccountServices;
-import com.btl.services.KhachHangServices;
+import com.btl.services.ReaderServices;
 
 import java.io.IOException;
 import static java.lang.Integer.parseInt;
@@ -42,7 +42,7 @@ import javafx.stage.Stage;
  *
  * @author Admin
  */
-public class DangKyKhachHangController implements Initializable  {
+public class DangKyKhachHangController implements Initializable {
 
     @FXML
     TextField txtTenKH;
@@ -71,7 +71,7 @@ public class DangKyKhachHangController implements Initializable  {
     @FXML
     PasswordField apasss;
 
-    private KhachHang khachHang;
+    private Reader reader;
     private Account account;
 
     public void initialize(URL url, ResourceBundle rb) {
@@ -90,11 +90,11 @@ public class DangKyKhachHangController implements Initializable  {
     public void addKhachHangHandler(ActionEvent event) throws SQLException, ParseException, Exception {
         try {
             AccountServices as = new AccountServices();
-            KhachHang k = new KhachHang();
+            Reader  k = new Reader();
             HashPassword mk = new HashPassword();
             String passHash = "";
             Account a = new Account();
-            KhachHangServices s = new KhachHangServices();
+            ReaderServices s = new ReaderServices();
 
             if (txtTenKH.getText().trim().equals("")
                     || txtDiaChi.getText().trim().equals("") || txtUsername.getText().trim().equals("")
@@ -112,13 +112,12 @@ public class DangKyKhachHangController implements Initializable  {
                     } else if (parseInt(txtSDT.getText()) <= 0 || parseInt(txtCMND.getText()) <= 0) {
                         throw new NumberFormatException();
                     } else {
-                        k.setMaKH(s.getMaxKhachHang());
-                        k.setCMND(Integer.toString(parseInt(this.txtCMND.getText())));
-                        k.setTenKH(this.txtTenKH.getText());
-                        k.setGioiTinh(this.cbGioiTinh.getValue().toString());
-                        k.setDiaChi(this.txtDiaChi.getText());
-                        k.setSDT(Integer.toString(parseInt(this.txtSDT.getText())));
-                        k.setMaAcc(as.getMaAccount());
+                        k.setReaderId(s.getMaxReader());
+                        k.setReaderName(this.txtTenKH.getText());
+                        k.setGender(this.cbGioiTinh.getValue().toString());
+                        k.setAddress(this.txtDiaChi.getText());
+                        k.setPhone(Integer.toString(parseInt(this.txtSDT.getText())));
+                        k.setAccountId_Reader(as.getMaAccount());
                         a.setUsername(this.txtUsername.getText());
                         passHash = mk.Hash_Password(this.txtPassword.getText());
                         a.setPassword(passHash);
@@ -126,7 +125,7 @@ public class DangKyKhachHangController implements Initializable  {
                         a.setTypeUser("KH");
                         try {
                             as.addAccount(a);
-                            s.addKhachHang(k);
+                            s.addReader(k);
                             Utils.getBox("Thêm thành công", Alert.AlertType.INFORMATION).show();
                         } catch (SQLException ex) {
                             Utils.getBox("Tên tài khoản tồn tại!", Alert.AlertType.INFORMATION).show();
@@ -145,31 +144,22 @@ public class DangKyKhachHangController implements Initializable  {
         Stage stage = (Stage) btnThoat.getScene().getWindow();
         stage.close();
     }
-    
-    /**
-     * @return the khachHang
-     */
-    public KhachHang getKhachHang() {
-        return khachHang;
+
+   
+    public Reader getReader() {
+        return reader;
     }
 
-    /**
-     * @param khachHang the khachHang to set
-     */
-    public void setKhachHang(KhachHang khachHang) {
-        this.khachHang = khachHang;
+ 
+    public void setReader(Reader reader) {
+        this.reader = reader;
     }
 
-    /**
-     * @return the account
-     */
+
     public Account getAccount() {
         return account;
     }
 
-    /**
-     * @param account the account to set
-     */
     public void setAccount(Account account) {
         this.account = account;
     }

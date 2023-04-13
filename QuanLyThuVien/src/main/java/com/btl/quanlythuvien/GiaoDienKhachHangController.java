@@ -5,8 +5,8 @@
 package com.btl.quanlythuvien;
 
 import com.btl.conf.Utils;
-import com.btl.pojo.KhachHang;
-import com.btl.services.KhachHangServices;
+import com.btl.pojo.Reader;
+import com.btl.services.ReaderServices;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -36,7 +36,7 @@ import javafx.stage.Stage;
 public class GiaoDienKhachHangController implements Initializable {
 
     
-     private KhachHang k;
+     private Reader k;
     /**
      * Initializes the controller class.
      */
@@ -45,11 +45,11 @@ public class GiaoDienKhachHangController implements Initializable {
         // TODO
     }    
 
-    void setK(KhachHang khachHangByAccount) {
+    void setK(Reader khachHangByAccount) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    public KhachHang getK() {
+    public Reader getK() {
         return k;
     }
 

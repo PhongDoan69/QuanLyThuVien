@@ -6,7 +6,7 @@ package com.btl.services;
 
 import com.btl.conf.JdbcUtils;
 import com.btl.pojo.Account;
-import com.btl.pojo.KhachHang;
+import com.btl.pojo.Reader;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
