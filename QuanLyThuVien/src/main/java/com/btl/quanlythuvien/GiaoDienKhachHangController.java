@@ -36,7 +36,15 @@ import javafx.stage.Stage;
 public class GiaoDienKhachHangController implements Initializable {
 
     
-     private Reader k;
+     private Reader r;
+
+    public Reader getK() {
+        return r;
+    }
+
+    public void setK(Reader r) {
+        this.r = r;
+    }
     /**
      * Initializes the controller class.
      */
@@ -45,14 +53,17 @@ public class GiaoDienKhachHangController implements Initializable {
         // TODO
     }    
 
-    void setR(Reader khachHangByAccount) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
+   
     
     public Reader getR() {
-        return k;
+        return r;
     }
 
+    public void setR(Reader r) {
+        this.r =r ;
+    }
+
+   
     /**
      * @param k the k to set
      */

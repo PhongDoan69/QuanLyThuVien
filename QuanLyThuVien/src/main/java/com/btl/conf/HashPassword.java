@@ -23,7 +23,7 @@ public class HashPassword {
                 myMap.put(i, 1);
             } else {
                 // i da xuat hien truoc do
-                int soLanXuatHien = myMap.get(1);
+                int soLanXuatHien = myMap.get(i);
                 soLanXuatHien++;
                 myMap.put(i, soLanXuatHien);
             }

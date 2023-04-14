@@ -90,7 +90,7 @@ public class DangKyKhachHangController implements Initializable {
     public void addKhachHangHandler(ActionEvent event) throws SQLException, ParseException, Exception {
         try {
             AccountServices as = new AccountServices();
-            Reader  k = new Reader();
+            Reader  r = new Reader();
             HashPassword mk = new HashPassword();
             String passHash = "";
             Account a = new Account();
@@ -112,12 +112,12 @@ public class DangKyKhachHangController implements Initializable {
                     } else if (parseInt(txtSDT.getText()) <= 0 || parseInt(txtCMND.getText()) <= 0) {
                         throw new NumberFormatException();
                     } else {
-                        k.setReaderId(s.getMaxReader());
-                        k.setReaderName(this.txtTenKH.getText());
-                        k.setGender(this.cbGioiTinh.getValue().toString());
-                        k.setAddress(this.txtDiaChi.getText());
-                        k.setPhone(Integer.toString(parseInt(this.txtSDT.getText())));
-                        k.setAccountId_Reader(as.getAccountId());
+                        r.setReaderId(s.getMaxReader());
+                        r.setReaderName(this.txtTenKH.getText());
+                        r.setGender(this.cbGioiTinh.getValue().toString());
+                        r.setAddress(this.txtDiaChi.getText());
+                        r.setPhone(Integer.toString(parseInt(this.txtSDT.getText())));
+                        r.setAccountId_Reader(as.getAccountId());
                         a.setUsername(this.txtUsername.getText());
                         passHash = mk.Hash_Password(this.txtPassword.getText());
                         a.setPassword(passHash);
@@ -125,7 +125,7 @@ public class DangKyKhachHangController implements Initializable {
                         a.setRole("DG");
                         try {
                             as.addAccount(a);
-                            s.addReader(k);
+                            s.addReader(r);
                             Utils.getBox("Thêm thành công", Alert.AlertType.INFORMATION).show();
                         } catch (SQLException ex) {
                             Utils.getBox("Tên tài khoản tồn tại!", Alert.AlertType.INFORMATION).show();

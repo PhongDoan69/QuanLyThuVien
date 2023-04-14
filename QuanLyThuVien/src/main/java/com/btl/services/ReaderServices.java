@@ -78,7 +78,7 @@ public class ReaderServices {
             stm.setString(9, a.getAddress());
             stm.setString(10, a.getPhone());
             stm.setInt(11, a.getBorrowingAvailability());
-            stm.setInt(12, a.getBorrowingAvailability());
+            stm.setInt(12, a.getAccountId_Reader());
 
             stm.executeUpdate();
         }
@@ -92,10 +92,9 @@ public class ReaderServices {
             stm.setString(1, Integer.toString(readerId));
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                s = new Reader(rs.getInt("readerId"), rs.getString("readerName"), rs.getString("gender"),
-                        rs.getDate("dob"), rs.getString("role"), rs.getString("position"), rs.getDate("dateOfCallCard"),
-                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowingAvailability"));
-            }
+               s = new  Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
+                        rs.getDate("date_of_birth"), rs.getString("reader_role"), rs.getString("position"), rs.getDate("date_of_call_card"),
+                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowing_availability")); }
         }
         return s;
     }
@@ -108,9 +107,9 @@ public class ReaderServices {
             stm.setString(1, Integer.toString(maAcc));
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                s = new Reader(rs.getInt("readerId"), rs.getString("readerName"), rs.getString("gender"),
-                        rs.getDate("dob"), rs.getString("role"), rs.getString("position"), rs.getDate("dateOfCallCard"),
-                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowingAvailability"));
+               s = new  Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
+                        rs.getDate("date_of_birth"), rs.getString("reader_role"), rs.getString("position"), rs.getDate("date_of_call_card"),
+                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowing_availability"));
             }
         }
         return s;
@@ -157,9 +156,9 @@ public class ReaderServices {
             if (!rs.next()) {
                 return null;
             } else {
-                s = new  Reader(rs.getInt("readerId"), rs.getString("readerName"), rs.getString("gender"),
-                        rs.getDate("dob"), rs.getString("role"), rs.getString("position"), rs.getDate("dateOfCallCard"),
-                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowingAvailability"));
+                s = new  Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
+                        rs.getDate("date_of_birth"), rs.getString("reader_role"), rs.getString("position"), rs.getDate("date_of_call_card"),
+                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowing_availability"));
             }
         }
         return s;
