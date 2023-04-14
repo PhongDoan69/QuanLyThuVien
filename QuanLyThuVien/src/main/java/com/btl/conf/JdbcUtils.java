@@ -25,6 +25,6 @@ public class JdbcUtils {
         }
     }
     public static Connection getConn() throws SQLException {
-        return DriverManager.getConnection("jdbc:mysql://localhost:3306/qlnhahang","root","Matkhau81@");
+        return DriverManager.getConnection("jdbc:mysql://localhost:3306/quanlythuvien","root","Matkhau81@");
     }
 }

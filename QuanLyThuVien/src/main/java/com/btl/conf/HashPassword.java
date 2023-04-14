@@ -13,13 +13,13 @@ import java.util.Map;
  */
 public class HashPassword {
 
-    public static String Hash_Password(String password) {
+    public static String Hash_Password(String passWord) {
         String maHash = "";
-        char[] chuoi = password.toCharArray();
+        char[] chuoi = passWord.toCharArray();
         Map<Character, Integer> myMap = new HashMap<>();
         // Character la gia tri cua phan tu trong mang. Integer la so lan xuat hien cua phan tu do
         for (char i : chuoi) {
-            if (!myMap.containsKey(i)) {
+            if (myMap.containsKey(i)== false) {
                 myMap.put(i, 1);
             } else {
                 // i da xuat hien truoc do

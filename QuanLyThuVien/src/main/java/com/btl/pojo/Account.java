@@ -11,8 +11,8 @@ package com.btl.pojo;
 public class Account {
     private int accountId;
     private String password;
-    private String role;
     private String username;
+    private String role;
     
     public Account(){
        
@@ -26,7 +26,7 @@ public class Account {
         return password;
     }
 
-    public String getTypeUser() {
+    public String getRole() {
         return role;
     }
 
@@ -42,8 +42,8 @@ public class Account {
         this.password = password;
     }
 
-    public void setTypeUser(String typeUser) {
-        this.role = typeUser;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public void setUsername(String username) {

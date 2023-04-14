@@ -19,13 +19,13 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("ThongTinDatSach.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("DangNhap.fxml"));
 
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load());
         } catch (IOException ex) {
-            Logger.getLogger(DangKyKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DangNhapController.class.getName()).log(Level.SEVERE, null, ex);
         }
         stage = new Stage();
         stage.setScene(scene);

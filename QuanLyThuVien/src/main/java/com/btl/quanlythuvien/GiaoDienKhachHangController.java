@@ -45,11 +45,11 @@ public class GiaoDienKhachHangController implements Initializable {
         // TODO
     }    
 
-    void setK(Reader khachHangByAccount) {
+    void setR(Reader khachHangByAccount) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
-    public Reader getK() {
+    public Reader getR() {
         return k;
     }
 

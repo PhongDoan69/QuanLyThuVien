@@ -10,6 +10,7 @@ import com.btl.pojo.Account;
 
 import com.btl.services.AccountServices;
 import com.btl.services.ReaderServices;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
@@ -31,6 +32,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
@@ -44,7 +46,7 @@ public class DangNhapController implements Initializable {
     @FXML
     private TextField tfTaiKhoan;
     @FXML
-    private TextField tfMatKhau;
+   private TextField tfMatKhau;
     @FXML
     Label quyen;
 
@@ -54,7 +56,7 @@ public class DangNhapController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            ObservableList a = FXCollections.observableArrayList("Khách Hàng", "Nhân Viên");
+            ObservableList a = FXCollections.observableArrayList("Độc Giả", "Nhân Viên");
             cbQuyenTruyCap.setItems(a);
 
         } catch (Exception ex) {
@@ -75,33 +77,33 @@ public class DangNhapController implements Initializable {
     
     public void btnDangNhap (ActionEvent event)throws SQLException,  IOException{
        HashPassword hp= new HashPassword();
-       ReaderServices ks=new ReaderServices();
+       ReaderServices rs=new ReaderServices();
        Account a= new Account();       
-       AccountServices s= new AccountServices();
+       AccountServices as= new AccountServices();
         
            String u= (this.tfTaiKhoan.getText());
            String p=hp.Hash_Password(this.tfMatKhau.getText()); 
            boolean check=false;
-           check=s.CheckLogin(u, p);      
+           check=as.CheckLogin(u, p);      
            taikhoan=this.tfTaiKhoan.getText();   
       
        
 
         if(!(tfTaiKhoan).getText().isEmpty() || !(tfMatKhau).getText().isEmpty()||tfMatKhau.getText().equals("")||tfTaiKhoan.getText().equals(""))
         { 
-          if(cbQuyenTruyCap.getValue()=="Khách Hàng"){
-            a.setTypeUser("KH");              
+          if(cbQuyenTruyCap.getValue()=="Độc Giả"){
+            a.setRole("DG");              
         if(!((tfTaiKhoan).getText().isEmpty() || (tfMatKhau).getText().isEmpty()||tfMatKhau.getText().equals("")||tfTaiKhoan.getText().equals(""))){
-                      if(check && s.checkACCOUNT(a)==1){
+                      if(check && as.checkAccountRole(a)==1){
                              login=true;
-                             ReaderServices kh = new ReaderServices();
+                             ReaderServices dg = new ReaderServices();
                              Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
                              FXMLLoader loader = new FXMLLoader();
                              loader.setLocation(getClass().getResource("GiaoDienKhachHang.fxml"));
                              Parent d = loader.load();
                              Scene scene = new Scene(d);
                              GiaoDienKhachHangController controller = loader.getController();
-                             controller.setK(kh.getReaderByUsername(u));
+                             controller.setR(dg.getReaderByUsername(u));
                              stage.setScene(scene); 
                       } 
              else 
@@ -113,12 +115,12 @@ public class DangNhapController implements Initializable {
 
         }
         else  if(cbQuyenTruyCap.getValue()=="Nhân Viên"){
-            a.setTypeUser("NV");
+            a.setRole("NV");
 
 
         if(!((tfTaiKhoan).getText().isEmpty() || (tfMatKhau).getText().isEmpty()||tfMatKhau.getText().equals("")||tfTaiKhoan.getText().equals("")))
         {
-            if(check && s.checkACCOUNT(a) == -1){
+            if(check && as.checkAccountRole(a) == -1){
                 login=true;
                 success_NV();
 

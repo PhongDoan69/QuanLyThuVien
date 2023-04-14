@@ -117,12 +117,12 @@ public class DangKyKhachHangController implements Initializable {
                         k.setGender(this.cbGioiTinh.getValue().toString());
                         k.setAddress(this.txtDiaChi.getText());
                         k.setPhone(Integer.toString(parseInt(this.txtSDT.getText())));
-                        k.setAccountId_Reader(as.getMaAccount());
+                        k.setAccountId_Reader(as.getAccountId());
                         a.setUsername(this.txtUsername.getText());
                         passHash = mk.Hash_Password(this.txtPassword.getText());
                         a.setPassword(passHash);
-                        a.setAccountId(as.getMaAccount());
-                        a.setTypeUser("KH");
+                        a.setAccountId(as.getAccountId());
+                        a.setRole("DG");
                         try {
                             as.addAccount(a);
                             s.addReader(k);

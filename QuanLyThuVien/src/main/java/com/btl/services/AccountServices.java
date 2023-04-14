@@ -26,42 +26,43 @@ public class AccountServices {
     public List<Account> getListAccount() throws SQLException {
         List<Account> Accounts = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM Account";
+            String sql = "SELECT * FROM account";
             PreparedStatement stm = conn.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Account s = new Account();
-                s.setAccountId(rs.getInt("MaAccount"));
-                s.setUsername(rs.getString("Username"));
-                s.setPassword(rs.getString("PassWord"));
-                s.setTypeUser(rs.getString("TypeUser"));
+                s.setAccountId(rs.getInt("id"));
+                s.setUsername(rs.getString("user_name"));
+                s.setPassword(rs.getString("password"));
+                s.setRole(rs.getString("role"));
                 Accounts.add(s);
             }
         }
         return Accounts;
     }
-
-    public int getMaAccount() throws SQLException {
-        int maxID = 0;
+     
+ 
+    public int getAccountId() throws SQLException {
+        int accId = 0;
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT ifnull(MAX(MaAccount),0) FROM account";
+            String sql = "SELECT ifnull(MAX(id),0) FROM account";
             PreparedStatement stm = conn.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                maxID = rs.getInt(1);
+                accId = rs.getInt(1);
             }
         }
-        return (maxID + 1);
+        return (accId + 1);
     }
 
     public void addAccount(Account a) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
-            PreparedStatement stm = conn.prepareStatement("INSERT INTO account(MaAccount, Username, PassWord, TypeUser)"
+            PreparedStatement stm = conn.prepareStatement("INSERT INTO account(id, user_name, password, role)"
                     + "VALUES(?, ?, ?, ?)");
             stm.setInt(1, a.getAccountId());
-            stm.setString(3, a.getPassword());
             stm.setString(2, a.getUsername());
-            stm.setString(4, a.getTypeUser());
+            stm.setString(3, a.getPassword());
+            stm.setString(4, a.getRole());
             stm.executeUpdate();
         }
 
@@ -71,10 +72,10 @@ public class AccountServices {
         boolean b = false;
         Connection conn = JdbcUtils.getConn();
         Statement stm = conn.createStatement();
-        ResultSet rs = stm.executeQuery("Select * from account where Username = \'" + user + "\'");
+        ResultSet rs = stm.executeQuery("Select * from account where user_name = \'" + user + "\'");
         String hashPass = "";
         while (rs.next()) {
-            hashPass = rs.getString("PassWord");
+            hashPass = rs.getString("password");
         }
         if (hashPass.equals(pass)) {
             b = true;
@@ -83,41 +84,42 @@ public class AccountServices {
         return b;
     }
 
-    public int checkACCOUNT(Account a) {
+    public int checkAccountRole(Account a) {
         int kq = 0;
-        if (a.getTypeUser() == "KH") {
+        if (a.getRole() == "DG") {
             kq = 1;
-        } else if (a.getTypeUser() == "NV") {
+        } else if (a.getRole() == "NV") {
             kq = -1;
         }
         return kq;
     }
 
-    public void delAccount(int maAcc) throws SQLException {
-        try (Connection cnn = JdbcUtils.getConn()) {
-            String sql = "DELETE FROM account WHERE (MaAccount = ?);";
-            PreparedStatement stm1 = cnn.prepareStatement("call update_SoLuongNV()");
-            PreparedStatement stm2 = cnn.prepareStatement(sql);
-            stm2.setInt(1, maAcc);
-            stm2.executeUpdate();
-            stm1.executeUpdate();
-        }
-    }
+//    public void deleteAccount(int maAcc) throws SQLException {
+//        try (Connection conn = JdbcUtils.getConn()) {
+//            String sql = "DELETE FROM account WHERE (id = ?);";
+//            PreparedStatement stm1 = conn.prepareStatement("call delete_account(?)");
+//            PreparedStatement stm2 = conn.prepareStatement(sql);
+//            stm2.setInt(1, maAcc);
+//            stm2.executeUpdate();
+//            stm1.executeUpdate();
+//        }
+//    }
 
-    public Account FindAccount(String userName) throws SQLException {
+    public Account FindAccountByUsername(String userName) throws SQLException {
         Account d = new Account();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM Account WHERE Username = ?";
+            String sql = "SELECT * FROM account WHERE user_name = ?";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, userName);
             ResultSet rs = stm.executeQuery();
             if (!rs.next()) {
                 return null;
             } else {
-                d.setAccountId(rs.getInt("MaAccount"));
-                d.setPassword(rs.getString("PassWord"));
-                d.setTypeUser(rs.getString("TypeUser"));
-                d.setUsername(rs.getString("Username"));
+                d.setAccountId(rs.getInt("id"));
+                d.setUsername(rs.getString("user_name"));
+                d.setPassword(rs.getString("password"));
+                d.setRole(rs.getString("role"));
+                
             }
         }
         return d;
