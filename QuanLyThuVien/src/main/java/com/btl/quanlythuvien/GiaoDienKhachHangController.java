@@ -7,6 +7,8 @@ package com.btl.quanlythuvien;
 import com.btl.conf.Utils;
 import com.btl.pojo.Reader;
 import com.btl.services.ReaderServices;
+import com.btl.services.BookServices;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -35,37 +37,32 @@ import javafx.stage.Stage;
  */
 public class GiaoDienKhachHangController implements Initializable {
 
-    
-     private Reader r;
+    @FXML ImageView imgDatSach;
+    @FXML ImageView imgThongTinDatSach;
+    @FXML Button b1;
+    private Reader r;
 
-    public Reader getK() {
-        return r;
-    }
-
-    public void setK(Reader r) {
-        this.r = r;
-    }
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
+        ReaderServices rs = new ReaderServices();
+        imgDatSach.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+        BookServices bs = new BookServices();
+        
+        });
+    }
 
-   
-    
     public Reader getR() {
         return r;
     }
 
     public void setR(Reader r) {
-        this.r =r ;
+        this.r = r;
     }
 
-   
     /**
      * @param k the k to set
      */
-    
 }

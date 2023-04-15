@@ -94,17 +94,9 @@ public class AccountServices {
         return kq;
     }
 
-//    public void deleteAccount(int maAcc) throws SQLException {
-//        try (Connection conn = JdbcUtils.getConn()) {
-//            String sql = "DELETE FROM account WHERE (id = ?);";
-//            PreparedStatement stm1 = conn.prepareStatement("call delete_account(?)");
-//            PreparedStatement stm2 = conn.prepareStatement(sql);
-//            stm2.setInt(1, maAcc);
-//            stm2.executeUpdate();
-//            stm1.executeUpdate();
-//        }
-//    }
-
+ 
+    
+    
     public Account FindAccountByUsername(String userName) throws SQLException {
         Account d = new Account();
         try (Connection conn = JdbcUtils.getConn()) {
