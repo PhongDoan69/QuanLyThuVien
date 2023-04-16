@@ -7,7 +7,7 @@ package com.btl.quanlythuvien;
 import com.btl.conf.Utils;
 import com.btl.pojo.Reader;
 import com.btl.services.ReaderServices;
-import com.btl.services.BookServices;
+import com.btl.services.DatSachServices;
 
 import java.io.IOException;
 import java.net.URL;
@@ -37,9 +37,10 @@ import javafx.stage.Stage;
  */
 public class GiaoDienKhachHangController implements Initializable {
 
-    @FXML ImageView imgDatSach;
-    @FXML ImageView imgThongTinDatSach;
-    @FXML Button b1;
+    @FXML
+    ImageView imgDatSach;
+    @FXML
+    ImageView imgThongTinDatSach;
     private Reader r;
 
     /**
@@ -49,8 +50,24 @@ public class GiaoDienKhachHangController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         ReaderServices rs = new ReaderServices();
         imgDatSach.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-        BookServices bs = new BookServices();
-        
+            DatSachServices ds = new DatSachServices();
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("DatSach.fxml"));
+                Parent d = loader.load();
+                Scene scene = new Scene(d);
+                DatSachController controller = loader.getController();
+                try {
+                    controller.LoadDataViewDatSach();
+                } catch (SQLException ex) {
+                    Logger.getLogger(GiaoDienKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                Logger.getLogger(GiaoDienKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
         });
     }
 
