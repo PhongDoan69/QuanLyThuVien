@@ -81,8 +81,12 @@ public class DatSachController implements Initializable {
         
         TableColumn colBookPosition = new TableColumn("Vị trí");
         colBookPosition.setCellValueFactory(new PropertyValueFactory("bookPosition"));
-        colBookPosition.setPrefWidth(100);        
-        this.tbSach.getColumns().addAll(colBookID, colBookName, colBookCategory, colBookDescription, colPublish, colPublishYear, colEntryDate, colBookPosition);
+        colBookPosition.setPrefWidth(100);    
+        
+        TableColumn colIstock = new TableColumn("Số lượng");
+        colIstock.setCellValueFactory(new PropertyValueFactory("istock"));
+        colIstock.setPrefWidth(100);
+        this.tbSach.getColumns().addAll(colBookID, colBookName, colBookCategory, colBookDescription, colPublish, colPublishYear, colEntryDate, colBookPosition, colIstock);
     }
     
     

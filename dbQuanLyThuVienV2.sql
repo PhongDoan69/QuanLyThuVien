@@ -84,6 +84,7 @@ CREATE TABLE `book` (
   `publish_year` int NOT NULL,
   `entry_date` date NOT NULL,
   `book_position` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `istock` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -94,7 +95,7 @@ CREATE TABLE `book` (
 
 LOCK TABLES `book` WRITE;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` VALUES (1,'Đắc nhân tâm','Tâm lý - Kỹ năng sống','Sách hướng dẫn tâm lý và kỹ năng sống','NXB Trẻ',2010,'2022-03-25','A01'),(2,'Cuốn theo chiều gió','Văn học','Cuốn theo chiều gió là tác phẩm tiểu thuyết nổi tiếng của nữ nhà văn Mỹ Margaret Mitchell, xuất bản lần đầu năm 1936.','NXB Văn học',1936,'2022-03-25','A02'),(3,'Tôi tài giỏi, bạn cũng thế','Phát triển bản thân','Vượt qua khó khăn và phát triển bản thân.','NXB Trẻ',2020,'2022-03-24','A03'),(4,'Đắc nhân tâm','Phát triển bản thân','Cuốn sách chuyên về phát triển bản thân này đã được viết bởi Dale Carnegie từ năm 1936, cho đến nay vẫn được nhiều người đọc và áp dụng trong cuộc sống.','NXB Thanh niên',1936,'2022-03-23','A03'),(5,'Người giàu có nhất thành Babylon','Tài chính - Kinh doanh','Cuốn sách kinh điển này giúp bạn học cách quản lý tài chính thông minh và cải thiện đời sống tài chính của mình.','NXB Hồng Đức',1926,'2022-03-22','B01'),(6,'Hai số phận','Văn học','Hai số phận là tác phẩm tiểu thuyết của nhà văn nổi tiếng Alexandre Dumas, phát hành lần đầu vào năm 1844.','NXB Văn học',1844,'2022-03-21','B02'),(7,'Tiếng chim hót trong bụi mận gai','Văn học','Tác phẩm đạt giải Quả cầu vàng cho bộ phim truyền hình xuất sắc nhất năm 1983','NXB Văn học',1977,'2022-03-20','B03'),(8,'Nhà giả kim','Văn học','Cuốn sách nổi tiếng của Paulo Coelho, kể về câu chuyện của một người đàn ông tìm kiếm nghĩa vụ của mình trong cuộc đời.','NXB Thế giới',1988,'2022-03-19','B04');
+INSERT INTO `book` VALUES (1,'Đắc nhân tâm','Tâm lý - Kỹ năng sống','Sách hướng dẫn tâm lý và kỹ năng sống','NXB Trẻ',2010,'2022-03-25','A01',0),(2,'Cuốn theo chiều gió','Văn học','Cuốn theo chiều gió là tác phẩm tiểu thuyết nổi tiếng của nữ nhà văn Mỹ Margaret Mitchell, xuất bản lần đầu năm 1936.','NXB Văn học',1936,'2022-03-25','A02',1),(3,'Tôi tài giỏi, bạn cũng thế','Phát triển bản thân','Vượt qua khó khăn và phát triển bản thân.','NXB Trẻ',2020,'2022-03-24','A03',12),(4,'Đắc nhân tâm','Phát triển bản thân','Cuốn sách chuyên về phát triển bản thân này đã được viết bởi Dale Carnegie từ năm 1936, cho đến nay vẫn được nhiều người đọc và áp dụng trong cuộc sống.','NXB Thanh niên',1936,'2022-03-23','A03',45),(5,'Người giàu có nhất thành Babylon','Tài chính - Kinh doanh','Cuốn sách kinh điển này giúp bạn học cách quản lý tài chính thông minh và cải thiện đời sống tài chính của mình.','NXB Hồng Đức',1926,'2022-03-22','B01',7),(6,'Hai số phận','Văn học','Hai số phận là tác phẩm tiểu thuyết của nhà văn nổi tiếng Alexandre Dumas, phát hành lần đầu vào năm 1844.','NXB Văn học',1844,'2022-03-21','B02',8),(7,'Tiếng chim hót trong bụi mận gai','Văn học','Tác phẩm đạt giải Quả cầu vàng cho bộ phim truyền hình xuất sắc nhất năm 1983','NXB Văn học',1977,'2022-03-20','B03',9),(8,'Nhà giả kim','Văn học','Cuốn sách nổi tiếng của Paulo Coelho, kể về câu chuyện của một người đàn ông tìm kiếm nghĩa vụ của mình trong cuộc đời.','NXB Thế giới',1988,'2022-03-19','B04',1);
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -136,7 +137,7 @@ DROP TABLE IF EXISTS `call_card`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `call_card` (
   `id` bigint NOT NULL AUTO_INCREMENT,
-  `date_call_card` datetime(6) NOT NULL,
+  `date_get_book` datetime(6) NOT NULL,
   `return_date` datetime(6) NOT NULL,
   `employee_id` bigint NOT NULL,
   `reader_id` bigint NOT NULL,
@@ -289,4 +290,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-04-14 23:26:47
+-- Dump completed on 2023-04-16 19:20:56

@@ -23,6 +23,15 @@ public class Book {
     private int publishYear;
     private Date entryDate;
     private String bookPosition;
+    private int istock;
+
+    public int getIstock() {
+        return istock;
+    }
+
+    public void setIstock(int istock) {
+        this.istock = istock;
+    }
 
     public int getBookId() {
         return bookId;
