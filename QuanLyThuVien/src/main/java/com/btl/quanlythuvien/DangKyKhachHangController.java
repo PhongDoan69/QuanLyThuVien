@@ -18,6 +18,7 @@ import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.time.Instant;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,8 +40,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import java.time.LocalDate;
+import java.util.Calendar;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  *
@@ -139,12 +141,11 @@ public class DangKyKhachHangController implements Initializable {
                         r.setEmail(this.txtEmail.getText());
                         r.setBorrowingAvailability(5);
                         // Xử lí hạn thẻ
-                        LocalDate now = LocalDate.now();
-                        LocalDate oneMonthLater = now.plusMonths(1);
-                        
-                        r.setDateOfCallCard(Date(oneMonthLater));
-                        
-                        
+                        Date currentDate = new Date(System.currentTimeMillis());
+                        LocalDate localDate = currentDate.toLocalDate().plusMonths(6);
+                        Date next6MonthDate = Date.valueOf(localDate);
+                        r.setDateOfCallCard(next6MonthDate);
+
                         r.setPhone(this.txtSDT.getText());
                         r.setAccountId_Reader(as.getAccountId());
                         a.setUsername(this.txtUsername.getText());
@@ -190,5 +191,4 @@ public class DangKyKhachHangController implements Initializable {
         this.account = account;
     }
 
-
-)}
+}

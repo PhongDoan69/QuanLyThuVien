@@ -11,10 +11,11 @@ import java.util.Date;
  * @author DTS
  */
 public class Book {
-    public Book(){
-        
+
+    public Book() {
+
     }
-    
+
     private int bookId;
     private String bookName;
     private String bookCategory;
@@ -23,15 +24,32 @@ public class Book {
     private int publishYear;
     private Date entryDate;
     private String bookPosition;
-    private int instock;
+    private String author;
+    private int inStock;
 
-    public int getInstock() {
-        return instock;
+    public int getInStock() {
+        return inStock;
     }
 
-    public void setInstock(int instock) {
-        this.instock = instock;
+    public void setInStock(int inStock) {
+        this.inStock = inStock;
     }
+
+    
+    
+    
+    
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+
+  
+
 
     public int getBookId() {
         return bookId;

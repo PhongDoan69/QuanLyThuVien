@@ -22,7 +22,7 @@ import javafx.scene.control.Alert;
  */
 public class DatSachServices {
 
-    public int getMaxDatTiec() throws SQLException {
+    public int getMaxCallCard() throws SQLException {
         int maxID = 0;
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "SELECT MAX(id) FROM call_card";
@@ -38,11 +38,12 @@ public class DatSachServices {
     public int addCallCard(CallCard c) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             PreparedStatement stm = conn.prepareStatement("INSERT INTO call_card(id, date_get_book, return_date, employee_id, reader_id)"
-                    + " VALUES(?, CURDATE(),CURDATE()+2, ?, ?)");
+                    + " VALUES(?, ?,?, ?, ?)");
             stm.setInt(1, c.getCallCardId());
-            stm.setInt(2, c.getEmployeeId());
-            stm.setInt(3, c.getReaderId());
-
+            stm.setDate(2, (Date) c.getDateGetBook());
+            stm.setDate(3, (Date) c.getReturnDate());
+            stm.setInt(4, c.getEmployeeId());
+            stm.setInt(5, c.getReaderId());
             stm.executeUpdate();
             return 1;
         }
@@ -78,53 +79,43 @@ public class DatSachServices {
         return c;
     }
 
-    public List<CallCard> getListCallCard(String kw) throws SQLException {
-        List<CallCard> ccs = new ArrayList<>();
-        try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM call_card ";
-            if (kw != null && !kw.isEmpty()) {
-                sql += " WHERE id like concat('%', ?, '%')";
-            }
-            PreparedStatement stm = conn.prepareStatement(sql);
-            if (kw != null && !kw.isEmpty()) {
-                stm.setString(1, kw);
-                stm.setString(2, kw);
-            }
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                CallCard c = new CallCard();
-                c.setCallCardId(rs.getInt("id"));
-                c.setDateGetBook(rs.getDate("date_get_book"));
-                c.setReturnDate(rs.getDate("return_date"));
-                c.setEmployeeId(rs.getInt("employee_id"));
-                c.setReaderId(rs.getInt("reader_id"));
-                ccs.add(c);
-            }
-        }
-        return ccs;
-    }
 
-    public List<CallCard> getListCallCardByReaderId(int c) throws SQLException {
-        List<CallCard> listCC = new ArrayList<>();
+    public List<CallCard> getListCallCard(int madat) throws SQLException {
+        List<CallCard> CallCards = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM call_card WHERE id = ?";
-            PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setInt(1, c);
+            PreparedStatement stm = conn.prepareStatement("SELECT * FROM datmonan WHERE id = ?");
+            stm.setInt(1, madat);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 CallCard cc = new CallCard();
+                cc.setCallCardId(rs.getInt("callCardId"));
+                cc.setDateGetBook(rs.getDate("dateGetBook"));
+                cc.setReturnDate(rs.getDate("returnDate"));
+                cc.setEmployeeId(rs.getInt("employeeId"));
+                cc.setReaderId(rs.getInt("readerId"));
+                CallCards.add(cc);
+            }
+        }
+        return CallCards;
+    }
+
+    public CallCard getCallCard(int maCC) throws SQLException {
+        CallCard cc = new CallCard();
+        try (Connection conn = JdbcUtils.getConn()) {
+            PreparedStatement stm = conn.prepareStatement("SELECT * FROM call_card WHERE id = ?");
+            stm.setInt(1, maCC);
+            ResultSet rs = stm.executeQuery();
+            if (!rs.next()) {
+                return null;
+            } else {
                 cc.setCallCardId(rs.getInt("id"));
                 cc.setDateGetBook(rs.getDate("date_get_book"));
                 cc.setReturnDate(rs.getDate("return_date"));
                 cc.setEmployeeId(rs.getInt("employee_id"));
                 cc.setReaderId(rs.getInt("reader_id"));
-
-                listCC.add(cc);
             }
         }
-        return listCC;
+        return cc;
     }
-
-
 
 }
