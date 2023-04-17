@@ -38,9 +38,9 @@ import javafx.stage.Stage;
 public class GiaoDienKhachHangController implements Initializable {
 
     @FXML
-    ImageView imgDatSach;
+    private ImageView imgDatSach;
     @FXML
-    ImageView imgThongTinDatSach;
+    private ImageView imgThongTinDatSach;
     private Reader r;
 
     /**
@@ -67,7 +67,7 @@ public class GiaoDienKhachHangController implements Initializable {
             } catch (IOException ex) {
                 Logger.getLogger(GiaoDienKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         });
     }
 
@@ -79,7 +79,4 @@ public class GiaoDienKhachHangController implements Initializable {
         this.r = r;
     }
 
-    /**
-     * @param k the k to set
-     */
 }

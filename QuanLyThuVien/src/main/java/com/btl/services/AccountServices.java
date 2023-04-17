@@ -68,7 +68,7 @@ public class AccountServices {
 
     }
 
-    public boolean CheckLogin(String user, String pass) throws SQLException {
+        public boolean CheckLogin(String user, String pass) throws SQLException {
         boolean b = false;
         Connection conn = JdbcUtils.getConn();
         Statement stm = conn.createStatement();

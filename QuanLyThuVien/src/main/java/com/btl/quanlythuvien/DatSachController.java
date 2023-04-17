@@ -27,12 +27,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Admin
  */
 public class DatSachController implements Initializable {
-    @FXML TextField txtTongSoSach;
-    @FXML TextField txtMaSach;
-    @FXML TextField txtSoLuong;
+    @FXML private TextField txtTongSoSach;
+    @FXML private TextField txtMaSach;
+    @FXML private TextField txtSoLuong;
     @FXML private TableView<Book> tbSach;
-    @FXML TableView tvSachDaChon;
-    BookServices sv = new BookServices();
+    @FXML private TableView tvSachDaChon;
+    BookServices bs = new BookServices();
     /**
      * Initializes the controller class.
      */
@@ -53,7 +53,7 @@ public class DatSachController implements Initializable {
     private void loadTvSach(){
         TableColumn colBookID = new TableColumn("Mã sách");
         colBookID.setCellValueFactory(new PropertyValueFactory("bookId"));
-        colBookID.setPrefWidth(100);
+        colBookID.setPrefWidth(50);
         
         TableColumn colBookName = new TableColumn("Tên sách");
         colBookName.setCellValueFactory(new PropertyValueFactory("bookName"));
@@ -83,15 +83,15 @@ public class DatSachController implements Initializable {
         colBookPosition.setCellValueFactory(new PropertyValueFactory("bookPosition"));
         colBookPosition.setPrefWidth(100);    
         
-        TableColumn colIstock = new TableColumn("Số lượng");
-        colIstock.setCellValueFactory(new PropertyValueFactory("istock"));
-        colIstock.setPrefWidth(100);
-        this.tbSach.getColumns().addAll(colBookID, colBookName, colBookCategory, colBookDescription, colPublish, colPublishYear, colEntryDate, colBookPosition, colIstock);
+        TableColumn colInstock = new TableColumn("Số lượng");
+        colInstock.setCellValueFactory(new PropertyValueFactory("instock"));
+        colInstock.setPrefWidth(100);
+        this.tbSach.getColumns().addAll(colBookID, colBookName, colBookCategory, colBookDescription, colPublish, colPublishYear, colEntryDate, colBookPosition, colInstock);
     }
     
     
     public void LoadDataViewDatSach() throws SQLException{
-        this.tbSach.setItems(FXCollections.observableArrayList(sv.getListBook()));
+        this.tbSach.setItems(FXCollections.observableArrayList(bs.getListBook()));
     }
     
 }

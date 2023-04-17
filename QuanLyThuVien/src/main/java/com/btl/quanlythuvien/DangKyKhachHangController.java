@@ -32,11 +32,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 /**
  *
@@ -45,31 +49,38 @@ import javafx.stage.Stage;
 public class DangKyKhachHangController implements Initializable {
 
     @FXML
-    TextField txtTenKH;
+    private TextField txtTenKH;
     @FXML
-    TextField txtSDT;
+    private TextField txtSDT;
     @FXML
-    TextField txtCMND;
+    private TextField txtCMND;
     @FXML
-    TextField txtGT;
+    private ComboBox cbGioiTinh;
     @FXML
-    TextField txtDiaChi;
+    private TextField txtDiaChi;
     @FXML
-    TextField txtUsername;
+    private ComboBox cbDoiTuong;
     @FXML
-    TextField txtPassword;
+    private TextField txtBoPhan;
     @FXML
-    TextField txtXacNhanPass;
+    private Label lbHanThe;
     @FXML
-    Button btnDangKy;
+    private TextField txtEmail;
     @FXML
-    Button btnThoat;
+    private TextField txtUsername;
     @FXML
-    CheckBox ckbhienMatKhau;
+    private TextField txtPassword;
     @FXML
-    ComboBox cbGioiTinh;
+    private TextField txtXacNhanPass;
     @FXML
-    PasswordField apasss;
+    private Button btnDangKy;
+    @FXML
+    private Button btnThoat;
+    @FXML
+    private CheckBox ckbhienMatKhau;
+
+    @FXML
+    private PasswordField apasss;
 
     private Reader reader;
     private Account account;
@@ -81,16 +92,23 @@ public class DangKyKhachHangController implements Initializable {
             cbGioiTinh.setItems(a);
             cbGioiTinh.setValue(a.get(0));
 
+            ObservableList b = FXCollections.observableArrayList("Sinh Viên", "Giảng Viên", "Viên Chức");
+            cbDoiTuong.setItems(b);
+            cbDoiTuong.setValue(b.get(0));
+
+            LocalDate now = LocalDate.now();
+            LocalDate oneMonthLater = now.plusMonths(1);
+            this.lbHanThe.setText(oneMonthLater.toString());
         } catch (Exception ex) {
             Logger.getLogger(DangKyKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
 
         }
     }
 
-    public void addKhachHangHandler(ActionEvent event) throws SQLException, ParseException, Exception {
+    public void addReaderHandler(ActionEvent event) throws SQLException, ParseException, Exception {
         try {
             AccountServices as = new AccountServices();
-            Reader  r = new Reader();
+            Reader r = new Reader();
             HashPassword mk = new HashPassword();
             String passHash = "";
             Account a = new Account();
@@ -115,8 +133,19 @@ public class DangKyKhachHangController implements Initializable {
                         r.setReaderId(s.getMaxReader());
                         r.setReaderName(this.txtTenKH.getText());
                         r.setGender(this.cbGioiTinh.getValue().toString());
+                        r.setRole(this.cbGioiTinh.getValue().toString());
                         r.setAddress(this.txtDiaChi.getText());
-                        r.setPhone(Integer.toString(parseInt(this.txtSDT.getText())));
+                        r.setPosition(this.txtBoPhan.getText());
+                        r.setEmail(this.txtEmail.getText());
+                        r.setBorrowingAvailability(5);
+                        // Xử lí hạn thẻ
+                        LocalDate now = LocalDate.now();
+                        LocalDate oneMonthLater = now.plusMonths(1);
+                        
+                        r.setDateOfCallCard(Date(oneMonthLater));
+                        
+                        
+                        r.setPhone(this.txtSDT.getText());
                         r.setAccountId_Reader(as.getAccountId());
                         a.setUsername(this.txtUsername.getText());
                         passHash = mk.Hash_Password(this.txtPassword.getText());
@@ -145,16 +174,13 @@ public class DangKyKhachHangController implements Initializable {
         stage.close();
     }
 
-   
     public Reader getReader() {
         return reader;
     }
 
- 
     public void setReader(Reader reader) {
         this.reader = reader;
     }
-
 
     public Account getAccount() {
         return account;
@@ -163,4 +189,6 @@ public class DangKyKhachHangController implements Initializable {
     public void setAccount(Account account) {
         this.account = account;
     }
-}
+
+
+)}

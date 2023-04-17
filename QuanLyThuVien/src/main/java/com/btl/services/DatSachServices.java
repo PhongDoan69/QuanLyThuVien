@@ -37,7 +37,7 @@ public class DatSachServices {
 
     public int addCallCard(CallCard c) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
-            PreparedStatement stm = conn.prepareStatement("INSERT INTO dattiec(id, date_get_book, return_date, employee_id, reader_id)"
+            PreparedStatement stm = conn.prepareStatement("INSERT INTO call_card(id, date_get_book, return_date, employee_id, reader_id)"
                     + " VALUES(?, CURDATE(),CURDATE()+2, ?, ?)");
             stm.setInt(1, c.getCallCardId());
             stm.setInt(2, c.getEmployeeId());

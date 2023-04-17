@@ -25,6 +25,7 @@ public class Reader {
     private String address;
     private String phone;
     private int borrowingAvailability;
+    private int instock;
     //Khoa ngoại 
     private int AccountId_Reader;
 
@@ -44,6 +45,7 @@ public class Reader {
         this.address = address;
         this.phone = phone;
         this.borrowingAvailability = borrowingAvailability;
+        
         this.AccountId_Reader = AccountId_Reader;
     }
 
@@ -51,9 +53,17 @@ public class Reader {
 
     public String toString() {
         return this.readerId + this.readerName + this.gender + this.dob
-                + this.role + this.position + this.dateOfCallCard + this.email + this.address + this.phone + this.borrowingAvailability
+                + this.role + this.position + this.dateOfCallCard + this.email + this.address + this.phone + this.borrowingAvailability 
                 + this.AccountId_Reader;
 
+    }
+
+    public int getInstock() {
+        return instock;
+    }
+
+    public void setInstock(int instock) {
+        this.instock = instock;
     }
 
     public void setReaderId(int readerId) {
@@ -80,10 +90,14 @@ public class Reader {
         this.position = position;
     }
 
+    /**
+     *
+     * @param dateOfCallCard
+     */
+   
     public void setDateOfCallCard(Date dateOfCallCard) {
         this.dateOfCallCard = dateOfCallCard;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
@@ -151,5 +165,7 @@ public class Reader {
     public int getAccountId_Reader() {
         return AccountId_Reader;
     }
+
+    
 
 }

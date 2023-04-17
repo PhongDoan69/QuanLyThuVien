@@ -151,7 +151,7 @@ public class DangNhapController implements Initializable {
                         controller.setR(dg.getReaderByUsername(u));
                         stage.setScene(scene);
                     } else {
-                        Utils.getBox("Sai tài khoản, mật khảu!", Alert.AlertType.WARNING).show();
+                        Utils.getBox("Sai tài khoản, mật khẩu!", Alert.AlertType.WARNING).show();
                     }
                 } else {
                     Utils.getBox("Chưa nhập đủ thông tin!", Alert.AlertType.WARNING).show();
@@ -168,7 +168,7 @@ public class DangNhapController implements Initializable {
                         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                         stage.close();
                     } else {
-                        Utils.getBox("Sai tài khoản, mật khảu!", Alert.AlertType.WARNING).show();
+                        Utils.getBox("Sai tài khoản, mật khẩu!", Alert.AlertType.WARNING).show();
                     }
                 } else {
                     Utils.getBox("Chưa nhập đủ thông tin!", Alert.AlertType.WARNING).show();
@@ -183,7 +183,7 @@ public class DangNhapController implements Initializable {
     }
 
     public void success_NV() throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("FQuanLy.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("QuanLy.fxml"));
 
         Scene scene = new Scene(fxmlLoader.load());
         Stage stage = new Stage();

@@ -42,7 +42,7 @@ public class BookServices {
                 b.setEntryDate(rs.getDate("entry_date"));
                 b.setBookPosition(rs.getString("book_position"));
                 b.setBookDescription(rs.getString("book_description"));
-                b.setIstock(rs.getInt("istock"));
+                b.setInstock(rs.getInt("istock"));
                 Books.add(b);
             }
         }

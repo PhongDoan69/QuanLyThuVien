@@ -23,14 +23,14 @@ public class Book {
     private int publishYear;
     private Date entryDate;
     private String bookPosition;
-    private int istock;
+    private int instock;
 
-    public int getIstock() {
-        return istock;
+    public int getInstock() {
+        return instock;
     }
 
-    public void setIstock(int istock) {
-        this.istock = istock;
+    public void setInstock(int instock) {
+        this.instock = instock;
     }
 
     public int getBookId() {
