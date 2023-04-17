@@ -13,6 +13,7 @@ import com.btl.services.BookServices;
 import com.btl.services.DatSachServices;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
+import static java.sql.JDBCType.NULL;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -196,12 +197,13 @@ public class DatSachController implements Initializable {
 
     public void addSach(ActionEvent event) throws SQLException, ParseException, Exception {
         try {
-
+               // create callcard
             CallCard cc = new CallCard();
             cc.setCallCardId(macc);
             cc.setDateGetBook(java.sql.Date.valueOf(LocalDate.now().plusDays(2)));
             cc.setReturnDate(java.sql.Date.valueOf(LocalDate.now().plusDays(30)));
             cc.setReaderId(r.getReaderId());
+            cc.setEmployeeId(-1);
             if (txtMaSach.getText().trim().equals("")) {
                 throw new Exception("Vui lòng chọn 1 sách");
             }
@@ -217,6 +219,16 @@ public class DatSachController implements Initializable {
         } catch (Exception ex1) {
             Utils.getBox(ex1.getMessage(), Alert.AlertType.INFORMATION).show();
         }
+        
+        // create callCardDetail
+//        if (flag==true){
+//            try{
+//                if(!"".equals(txtMaMA.getText().trim()))
+//            }
+//            catch(){
+//                
+//            }
+//        }
     }
 
 }
