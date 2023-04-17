@@ -24,6 +24,15 @@ public class Book {
     private Date entryDate;
     private String bookPosition;
     private int istock;
+    private String author;
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public int getIstock() {
         return istock;

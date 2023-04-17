@@ -19,18 +19,18 @@ import java.sql.Date;
  * @author DTS
  */
 public class BookServices {
-    public List<Book> getListBook() throws SQLException
+    public List<Book> getListBook(String kw) throws SQLException
     {
         List<Book> Books = new ArrayList<>();
         try(Connection conn = JdbcUtils.getConn()){
             String sql = "SELECT * FROM book";
             
             PreparedStatement stm = conn.prepareStatement(sql);
-//            if(kw != null && !kw.isEmpty())
-//            {
-//                stm.setString(1, kw);
-//                stm.setString(2, kw);
-//            }        
+            if(kw != null && !kw.isEmpty())
+            {
+                stm.setString(1, kw);
+                stm.setString(2, kw);
+            }        
             ResultSet rs = stm.executeQuery();
             while(rs.next()){
                 Book b = new Book();
@@ -43,6 +43,7 @@ public class BookServices {
                 b.setBookPosition(rs.getString("book_position"));
                 b.setBookDescription(rs.getString("book_description"));
                 b.setIstock(rs.getInt("istock"));
+                b.setAuthor(rs.getString("author"));
                 Books.add(b);
             }
         }

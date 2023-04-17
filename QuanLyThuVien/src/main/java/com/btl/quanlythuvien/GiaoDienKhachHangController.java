@@ -59,7 +59,7 @@ public class GiaoDienKhachHangController implements Initializable {
                 Scene scene = new Scene(d);
                 DatSachController controller = loader.getController();
                 try {
-                    controller.LoadDataViewDatSach();
+                    controller.LoadTabDatSach(r);
                 } catch (SQLException ex) {
                     Logger.getLogger(GiaoDienKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
                 }

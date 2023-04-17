@@ -4,22 +4,35 @@
  */
 package com.btl.quanlythuvien;
 
+import com.btl.conf.Utils;
 import com.btl.pojo.Book;
+import com.btl.pojo.CallCard;
+import com.btl.pojo.CallCardDetail;
 import com.btl.pojo.Reader;
 import com.btl.services.BookServices;
 import com.btl.services.DatSachServices;
+import static java.lang.Integer.parseInt;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.DateCell;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 /**
  * FXML Controller class
@@ -27,71 +40,186 @@ import javafx.scene.control.cell.PropertyValueFactory;
  * @author Admin
  */
 public class DatSachController implements Initializable {
-    @FXML TextField txtTongSoSach;
-    @FXML TextField txtMaSach;
-    @FXML TextField txtSoLuong;
-    @FXML private TableView<Book> tbSach;
-    @FXML TableView tvSachDaChon;
-    BookServices sv = new BookServices();
+
+    @FXML
+    TextField txtTongSoSach;
+    @FXML
+    TextField txtMaSach;
+    @FXML
+    TextField txtSoLuong;
+    @FXML
+    TextField txtFindBook;
+    @FXML
+    private TableView<Book> tvSach;
+    @FXML
+    TableView tvSachDaChon;
+    @FXML
+    TextField txtNgayDat;
+    @FXML
+    TextField txtHanTra;
+    Reader r = new Reader();
+    public boolean flag = false;
+    private int macc;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-        loadTvSach();
         try {
-            LoadDataViewDatSach();
+            // TODO
+            this.LoadTabDatSach(r);
         } catch (SQLException ex) {
             Logger.getLogger(DatSachController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
-    } 
-    
+    }
+
     //TabDatSach
-    private void loadTvSach(){
+    private void loadTvSach() {
         TableColumn colBookID = new TableColumn("Mã sách");
         colBookID.setCellValueFactory(new PropertyValueFactory("bookId"));
         colBookID.setPrefWidth(100);
-        
+
         TableColumn colBookName = new TableColumn("Tên sách");
         colBookName.setCellValueFactory(new PropertyValueFactory("bookName"));
         colBookName.setPrefWidth(100);
-        
+
         TableColumn colBookCategory = new TableColumn("Thể loại");
         colBookCategory.setCellValueFactory(new PropertyValueFactory("bookCategory"));
         colBookCategory.setPrefWidth(100);
-        
+
         TableColumn colBookDescription = new TableColumn("Mô tả");
         colBookDescription.setCellValueFactory(new PropertyValueFactory("bookDescription"));
         colBookDescription.setPrefWidth(100);
-        
+
         TableColumn colPublish = new TableColumn("NXB");
         colPublish.setCellValueFactory(new PropertyValueFactory("publish"));
         colPublish.setPrefWidth(100);
-        
+
         TableColumn colPublishYear = new TableColumn("Năm xuất bản");
         colPublishYear.setCellValueFactory(new PropertyValueFactory("publishYear"));
         colPublishYear.setPrefWidth(100);
-        
+
         TableColumn colEntryDate = new TableColumn("Ngày Nhập");
         colEntryDate.setCellValueFactory(new PropertyValueFactory("entryDate"));
         colEntryDate.setPrefWidth(100);
-        
+
         TableColumn colBookPosition = new TableColumn("Vị trí");
         colBookPosition.setCellValueFactory(new PropertyValueFactory("bookPosition"));
-        colBookPosition.setPrefWidth(100);    
-        
+        colBookPosition.setPrefWidth(100);
+
         TableColumn colIstock = new TableColumn("Số lượng");
         colIstock.setCellValueFactory(new PropertyValueFactory("istock"));
         colIstock.setPrefWidth(100);
-        this.tbSach.getColumns().addAll(colBookID, colBookName, colBookCategory, colBookDescription, colPublish, colPublishYear, colEntryDate, colBookPosition, colIstock);
+
+        TableColumn colAuthor = new TableColumn("Tác giả");
+        colAuthor.setCellValueFactory(new PropertyValueFactory("author"));
+        colAuthor.setPrefWidth(100);
+        this.tvSach.getColumns().addAll(colBookID, colBookName, colBookCategory, colBookDescription, colPublish, colPublishYear, colEntryDate, colBookPosition, colIstock, colAuthor);
     }
-    
-    
-    public void LoadDataViewDatSach() throws SQLException{
-        this.tbSach.setItems(FXCollections.observableArrayList(sv.getListBook()));
+
+    private void loadTvSachData(String kw) throws SQLException {
+        BookServices b = new BookServices();
+
+        this.tvSach.setItems(FXCollections.observableList(b.getListBook(kw)));
     }
-    
+
+    private void loadTvSachDaChon() {
+
+        TableColumn colBookID = new TableColumn("Mã sách");
+        colBookID.setCellValueFactory(new PropertyValueFactory(txtMaSach.getText()));
+        colBookID.setPrefWidth(100);
+
+        TableColumn colIstock = new TableColumn("Số lượng");
+        colIstock.setCellValueFactory(new PropertyValueFactory(txtSoLuong.getText()));
+        colIstock.setPrefWidth(100);
+
+        this.tvSachDaChon.getColumns().addAll(colBookID, colIstock);
+
+    }
+
+    private void loadTvSachDaChonData(int ma) throws SQLException {
+        DatSachServices ds = new DatSachServices();
+        this.tvSachDaChon.setItems(FXCollections.observableList(ds.getListCallCard(ma)));
+    }
+
+    private void MouseClickTvSach() {
+        tvSach.setRowFactory((tv) -> {
+            TableRow<Book> row = new TableRow<>();
+            row.setOnMouseClicked((event) -> {
+                if (event.getClickCount() != 0 && (!row.isEmpty())) {
+                    Book rowData = row.getItem();
+                    this.txtMaSach.setText(String.valueOf(rowData.getBookId()));
+                }
+            });
+            return row;
+        });
+    }
+
+    private void MouseClickTvSachDaChon() {
+        tvSachDaChon.setRowFactory((tv) -> {
+            TableRow<Book> row = new TableRow<>();
+            row.setOnMouseClicked((event) -> {
+                if (event.getClickCount() != 0 && (!row.isEmpty())) {
+                    Book rowData = row.getItem();
+                    this.txtMaSach.setText(String.valueOf(rowData.getBookId()));
+                    this.txtSoLuong.setText(String.valueOf(rowData.getIstock()));
+                }
+            });
+            return row;
+        });
+    }
+
+    public void LoadTabDatSach(Reader r) throws SQLException {
+        DatSachServices ds = new DatSachServices();
+        this.loadTvSach();
+        this.loadTvSachDaChon();
+        this.MouseClickTvSach();
+        MouseClickTvSachDaChon();
+        SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
+        this.txtNgayDat.setText(d.format(java.sql.Date.valueOf(LocalDate.now())));
+        this.macc = ds.getMaxCallCard();
+        this.txtHanTra.setText(d.format(java.sql.Date.valueOf(LocalDate.now().plusDays(30))));
+//        this.txtMaTiec.setText(Integer.toString(maTiec));
+        try {
+            this.loadTvSachData(null);
+        } catch (SQLException ex) {
+            Logger.getLogger(DatSachController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        this.txtFindBook.textProperty().addListener((evt) -> {
+
+            try {
+                this.loadTvSachData(this.txtFindBook.getText().trim());
+            } catch (SQLException ex) {
+                Logger.getLogger(DatSachController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+    }
+
+    public void addSach(ActionEvent event) throws SQLException, ParseException, Exception {
+        try {
+
+            CallCard cc = new CallCard();
+            cc.setCallCardId(macc);
+            cc.setDateGetBook(java.sql.Date.valueOf(LocalDate.now().plusDays(2)));
+            cc.setReturnDate(java.sql.Date.valueOf(LocalDate.now().plusDays(30)));
+            cc.setReaderId(r.getReaderId());
+            if (txtMaSach.getText().trim().equals("")) {
+                throw new Exception("Vui lòng chọn 1 sách");
+            }
+            if (this.txtSoLuong.getText().trim().equals("")) {
+                throw new Exception("Vui lòng nhap so sach can muon");
+            }
+            DatSachServices ds = new DatSachServices();
+            ds.addCallCard(cc);
+            flag = true;
+            Utils.getBox("Thêm thành công!", Alert.AlertType.INFORMATION).show();
+        } catch (NumberFormatException ex) {
+            Utils.getBox("Vui lòng nhập đúng kiểu dữ liệu!", Alert.AlertType.INFORMATION).show();
+        } catch (Exception ex1) {
+            Utils.getBox(ex1.getMessage(), Alert.AlertType.INFORMATION).show();
+        }
+    }
+
 }
