@@ -13,6 +13,13 @@ public class CallCardDetail {
     public CallCardDetail(){
         
     }
+    
+    public CallCardDetail(int callCardDetailId, int quantity, int bookId, int callCardId){
+        this.callCardDetailId = callCardDetailId;
+        this.quantity = quantity;
+        this.bookId = bookId;
+        this.callCardId = callCardId;
+    }
     private int callCardDetailId;
     private int quantity;
     private int bookId;

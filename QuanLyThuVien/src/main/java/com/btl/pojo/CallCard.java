@@ -19,6 +19,14 @@ public class CallCard {
         
     }
 
+    public CallCard(int callCardId, Date dateGetBook, Date returnDate, int employeeId, int readerId){
+        this.callCardId = callCardId;
+        this.dateGetBook = dateGetBook;
+        this.returnDate = returnDate;
+        this.employeeId = employeeId;
+        this.readerId = readerId;
+    }
+    
     public int getCallCardId() {
         return callCardId;
     }

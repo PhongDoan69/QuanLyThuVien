@@ -149,6 +149,7 @@ public class DangNhapController implements Initializable {
                         Scene scene = new Scene(d);
                         GiaoDienKhachHangController controller = loader.getController();
                         controller.setR(dg.getReaderByUsername(u));
+                        App.setCurR(dg.getReaderByUsername(u));
                         stage.setScene(scene);
                     } else {
                         Utils.getBox("Sai tài khoản, mật khẩu!", Alert.AlertType.WARNING).show();

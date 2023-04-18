@@ -10,6 +10,7 @@ import com.btl.pojo.CallCard;
 import com.btl.pojo.CallCardDetail;
 import com.btl.pojo.Reader;
 import com.btl.services.BookServices;
+import com.btl.services.CallCardDetailServices;
 import com.btl.services.DatSachServices;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
@@ -59,7 +60,7 @@ public class DatSachController implements Initializable {
     @FXML
     TextField txtHanTra;
 
-    Reader r = new Reader();
+    Reader r = App.getCurR();
     public boolean flag = false;
     private int macc;
 
@@ -124,22 +125,30 @@ public class DatSachController implements Initializable {
     }
 
     private void loadTvSachDaChon() {
-
-        TableColumn colBookID = new TableColumn("Mã sách");
-        colBookID.setCellValueFactory(new PropertyValueFactory(txtMaSach.getText()));
-        colBookID.setPrefWidth(100);
-
+        
+        TableColumn colCallCardDetail = new TableColumn("Mã chi tiet phieu muon");
+        colCallCardDetail.setCellValueFactory(new PropertyValueFactory("callCardDetailId"));
+        colCallCardDetail.setPrefWidth(100);
+        
         TableColumn colIstock = new TableColumn("Số lượng");
-        colIstock.setCellValueFactory(new PropertyValueFactory(txtSoLuong.getText()));
+        colIstock.setCellValueFactory(new PropertyValueFactory("quantity"));
         colIstock.setPrefWidth(100);
-
+        
+        TableColumn colBookID = new TableColumn("Mã sách");
+        colBookID.setCellValueFactory(new PropertyValueFactory("bookId"));
+        colBookID.setPrefWidth(100);        
+        
+        TableColumn colCallCardID = new TableColumn("Số lượng");
+        colCallCardID.setCellValueFactory(new PropertyValueFactory("callCardID"));
+        colCallCardID.setPrefWidth(100);
+        
         this.tvSachDaChon.getColumns().addAll(colBookID, colIstock);
-
+        
     }
 
-    private void loadTvSachDaChonData(int ma) throws SQLException {
-        DatSachServices ds = new DatSachServices();
-        this.tvSachDaChon.setItems(FXCollections.observableList(ds.getListCallCard(ma)));
+    private void loadTvSachDaChonData(int id) throws SQLException {
+        CallCardDetailServices b = new CallCardDetailServices();
+        this.tvSachDaChon.setItems(FXCollections.observableList(b.getListCallCardDetail(id)));
     }
 
     private void MouseClickTvSach() {
@@ -170,11 +179,10 @@ public class DatSachController implements Initializable {
     }
 
     public void LoadTabDatSach(Reader r) throws SQLException {
-        DatSachServices ds = new DatSachServices();
         this.loadTvSach();
-        this.loadTvSachDaChon();
         this.MouseClickTvSach();
-        MouseClickTvSachDaChon();
+        MouseClickTvSachDaChon(); 
+        DatSachServices ds = new DatSachServices();
         SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
         this.txtNgayDat.setText(d.format(java.sql.Date.valueOf(LocalDate.now())));
         this.macc = ds.getMaxCallCard();
@@ -196,30 +204,31 @@ public class DatSachController implements Initializable {
     }
 
     public void addSach(ActionEvent event) throws SQLException, ParseException, Exception {
-        try {
-               // create callcard
-            CallCard cc = new CallCard();
-            cc.setCallCardId(macc);
-            cc.setDateGetBook(java.sql.Date.valueOf(LocalDate.now().plusDays(2)));
-            cc.setReturnDate(java.sql.Date.valueOf(LocalDate.now().plusDays(30)));
-            cc.setReaderId(r.getReaderId());
-            cc.setEmployeeId(-1);
-            if (txtMaSach.getText().trim().equals("")) {
-                throw new Exception("Vui lòng chọn 1 sách");
-            }
-            if (this.txtSoLuong.getText().trim().equals("")) {
-                throw new Exception("Vui lòng nhap so sach can muon");
-            }
-            DatSachServices ds = new DatSachServices();
-            ds.addCallCard(cc);
-            flag = true;
-            Utils.getBox("Thêm thành công!", Alert.AlertType.INFORMATION).show();
-        } catch (NumberFormatException ex) {
-            Utils.getBox("Vui lòng nhập đúng kiểu dữ liệu!", Alert.AlertType.INFORMATION).show();
-        } catch (Exception ex1) {
-            Utils.getBox(ex1.getMessage(), Alert.AlertType.INFORMATION).show();
-        }
+        CallCard cc = new CallCard();
+        DatSachServices dds = new DatSachServices();
+        CallCardDetail ccd = new CallCardDetail();
+        CallCardDetailServices ccds = new CallCardDetailServices();
+        cc.setCallCardId(dds.getMaxCallCard());
+        cc.setReaderId(this.r.getReaderId());
+        cc.setDateGetBook(java.sql.Date.valueOf(LocalDate.now().plusDays(2)));
+        cc.setReturnDate(java.sql.Date.valueOf(LocalDate.now().plusDays(30)));
+
+        dds.addCallCard(cc);
+        ccd.setCallCardDetailId(ccds.getMaxCallCardDetail());
+        ccd.setBookId(parseInt(this.txtMaSach.getText()));
+        ccd.setQuantity(parseInt(this.txtSoLuong.getText()));
+        ccd.setCallCardId(cc.getCallCardId());
+        ccds.addCallCardDetail(ccd);
         
+//            if (txtMaSach.getText().trim().equals("")) {
+//                throw new Exception("Vui lòng chọn 1 sách");
+//            }
+//            if (this.txtSoLuong.getText().trim().equals("")) {
+//                throw new Exception("Vui lòng nhap so sach can muon");
+//            }
+        this.loadTvSachDaChonData(ccd.getCallCardDetailId());
+        this.loadTvSachDaChon();
+        Utils.getBox("Thêm thành công!", Alert.AlertType.INFORMATION).show();
         // create callCardDetail
 //        if (flag==true){
 //            try{

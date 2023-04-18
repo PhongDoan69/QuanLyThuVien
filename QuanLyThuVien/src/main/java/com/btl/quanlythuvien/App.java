@@ -1,5 +1,7 @@
 package com.btl.quanlythuvien;
 
+import com.btl.pojo.Account;
+import com.btl.pojo.Reader;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,6 +18,10 @@ import java.util.logging.Logger;
 public class App extends Application {
 
     private static Scene scene;
+
+    private static Account curAcc;
+        private static Reader curR;
+
 
     @Override
     public void start(Stage stage) throws IOException {
@@ -35,5 +41,33 @@ public class App extends Application {
     public static void main(String[] args) {
         launch();
 
+    }
+
+    /**
+     * @return the curAcc
+     */
+    public static Account getCurAcc() {
+        return curAcc;
+    }
+
+    /**
+     * @param aCurAcc the curAcc to set
+     */
+    public static void setCurAcc(Account aCurAcc) {
+        curAcc = aCurAcc;
+    }
+
+    /**
+     * @return the curR
+     */
+    public static Reader getCurR() {
+        return curR;
+    }
+
+    /**
+     * @param aCurR the curR to set
+     */
+    public static void setCurR(Reader aCurR) {
+        curR = aCurR;
     }
 }
