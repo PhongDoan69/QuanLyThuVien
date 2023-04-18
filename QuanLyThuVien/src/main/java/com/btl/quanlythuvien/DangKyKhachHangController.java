@@ -135,7 +135,7 @@ public class DangKyKhachHangController implements Initializable {
                         r.setReaderId(rs.getMaxReader());
                         r.setReaderName(this.txtTenKH.getText());
                         r.setGender(this.cbGioiTinh.getValue().toString());
-                        r.setRole(this.cbGioiTinh.getValue().toString());
+                        r.setRole(this.cbDoiTuong.getValue().toString());
                         r.setAddress(this.txtDiaChi.getText());
                         r.setPosition(this.txtBoPhan.getText());
                         r.setEmail(this.txtEmail.getText());

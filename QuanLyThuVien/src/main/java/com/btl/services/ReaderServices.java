@@ -36,7 +36,7 @@ public class ReaderServices {
             }
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Reader s = new Reader(rs.getInt("readerId"), rs.getString("readerName"), rs.getString("gender"),
+                Reader s = new Reader(rs.getInt("id"), rs.getString("readerName"), rs.getString("gender"),
                         rs.getDate("dob"), rs.getString("role"), rs.getString("position"), rs.getDate("dateOfCallCard"),
                         rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowingAvailability"));
                 Readers.add(s);
@@ -99,7 +99,7 @@ public class ReaderServices {
         return s;
     }
 
-    public Reader getKhachHangbyAcc(int maAcc) throws SQLException {
+    public Reader getReaderByAcc(int maAcc) throws SQLException {
         Reader s = null;
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "SELECT * FROM reader Where id = ?";
@@ -115,7 +115,7 @@ public class ReaderServices {
         return s;
     }
 
-    public void updateKhachhang(Reader k) throws SQLException {
+    public void updateReader(Reader k) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
             PreparedStatement stm = conn.prepareStatement("UPDATE reader\n"
                     + "set id = ?, reader_name = ?, gender = ?, date_of_birth = ?, reader_role = ?, position = ? ,date_of_call_card = ?, email = ?, address = ?, phone = ?,borrowing_availability= ?, account_id =? ");

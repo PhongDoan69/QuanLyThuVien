@@ -57,7 +57,7 @@ public class AccountServices {
 
     public void addAccount(Account a) throws SQLException {
         try (Connection conn = JdbcUtils.getConn()) {
-            PreparedStatement stm = conn.prepareStatement("INSERT INTO account(id, user_name, password, role)"
+            PreparedStatement stm = conn.prepareStatement("INSERT INTO  account(id, user_name, password, role)"
                     + "VALUES(?, ?, ?, ?)");
             stm.setInt(1, a.getAccountId());
             stm.setString(2, a.getUsername());

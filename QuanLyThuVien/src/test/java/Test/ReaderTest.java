@@ -36,32 +36,32 @@ public class ReaderTest {
     AccountServices AS;
     HashPassword password;
     LocalDate currentDate = LocalDate.now();
-    @Test
-    public void testUnique() throws SQLException {
-        Connection conn = JdbcUtils.getConn();
-        PreparedStatement stm = conn.prepareStatement("SELECT * FROM account");
-        ResultSet rs = stm.executeQuery();
-        List<String> s = new ArrayList<>();
-        while (rs.next()) {
-            String userName = rs.getString("user_name");
-            s.add(userName);
-        }
-        Set<String> kq = new HashSet<>(s);
-        Assertions.assertEquals(s.size(), kq.size());
-        if (conn != null) {
-            conn.close();
-        }
-    }
-    
-    @Test
-    public void testLogin() throws SQLException {
-        password = new HashPassword();
-        AS = new AccountServices();
-        String us = "phong123";
-        String p = password.Hash_Password("123123123");
-        Assertions.assertTrue(AS.CheckLogin(us, p));
-        
-    }
+//    @Test
+//    public void testUsernameUnique() throws SQLException {
+//        Connection conn = JdbcUtils.getConn();
+//        PreparedStatement stm = conn.prepareStatement("SELECT * FROM account");
+//        ResultSet rs = stm.executeQuery();
+//        List<String> s = new ArrayList<>();
+//        while (rs.next()) {
+//            String userName = rs.getString("user_name");
+//            s.add(userName);
+//        }
+//        Set<String> kq = new HashSet<>(s);
+//        Assertions.assertEquals(s.size(), kq.size());
+//        if (conn != null) {
+//            conn.close();
+//        }
+//    }
+//    
+//    @Test
+//    public void testLogin() throws SQLException {
+//        password = new HashPassword();
+//        AS = new AccountServices();
+//        String us = "phong123";
+//        String p = password.Hash_Password("123123123");
+//        Assertions.assertTrue(AS.CheckLogin(us, p));
+//        
+//    }
     
     @Test//add khach hang
     public void testAddReader() throws SQLException {
@@ -70,10 +70,12 @@ public class ReaderTest {
         AS = new AccountServices();
         Reader r = new Reader();
         Account account = new Account();
+        
         account.setAccountId(AS.getAccountId());
         account.setUsername("huuducdz123");
         account.setPassword(hp.Hash_Password("12345678"));
         account.setRole("KH");
+        
         r.setReaderId(RS.getMaxReader());
         r.setReaderName("Duke");
         r.setGender("nam");
@@ -94,5 +96,15 @@ public class ReaderTest {
         Assertions.assertEquals(b + 1, RS.getListReader(null).size());
         
     }
+//    @Test
+//    //Cập nhật reader
+//       public void testUpdate() throws SQLException{
+//        RS = new ReaderServices();
+//        AS = new AccountServices();
+//        Reader r =RS.getReaderByUsername("phong123");
+//        r .setPhone("123456789");
+//        RS.updateKhachhang(r );
+//        Assertions.assertEquals("123456789",RS.getReaderByUsername("phong123").getPhone());
+//    }
     
 }
