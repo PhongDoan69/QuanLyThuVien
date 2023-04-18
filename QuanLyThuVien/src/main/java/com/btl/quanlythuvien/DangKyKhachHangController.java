@@ -114,7 +114,7 @@ public class DangKyKhachHangController implements Initializable {
             HashPassword mk = new HashPassword();
             String passHash = "";
             Account a = new Account();
-            ReaderServices s = new ReaderServices();
+            ReaderServices rs = new ReaderServices();
 
             if (txtTenKH.getText().trim().equals("")
                     || txtDiaChi.getText().trim().equals("") || txtUsername.getText().trim().equals("")
@@ -132,7 +132,7 @@ public class DangKyKhachHangController implements Initializable {
                     } else if (parseInt(txtSDT.getText()) <= 0 || parseInt(txtCMND.getText()) <= 0) {
                         throw new NumberFormatException();
                     } else {
-                        r.setReaderId(s.getMaxReader());
+                        r.setReaderId(rs.getMaxReader());
                         r.setReaderName(this.txtTenKH.getText());
                         r.setGender(this.cbGioiTinh.getValue().toString());
                         r.setRole(this.cbGioiTinh.getValue().toString());
@@ -148,14 +148,16 @@ public class DangKyKhachHangController implements Initializable {
 
                         r.setPhone(this.txtSDT.getText());
                         r.setAccountId_Reader(as.getAccountId());
+                        
                         a.setUsername(this.txtUsername.getText());
                         passHash = mk.Hash_Password(this.txtPassword.getText());
+                        
                         a.setPassword(passHash);
                         a.setAccountId(as.getAccountId());
                         a.setRole("DG");
                         try {
                             as.addAccount(a);
-                            s.addReader(r);
+                            rs.addReader(r);
                             Utils.getBox("Thêm thành công", Alert.AlertType.INFORMATION).show();
                         } catch (SQLException ex) {
                             Utils.getBox("Tên tài khoản tồn tại!", Alert.AlertType.INFORMATION).show();

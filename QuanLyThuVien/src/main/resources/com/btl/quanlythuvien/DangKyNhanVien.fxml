@@ -42,7 +42,7 @@
                   <Font size="15.0" />
                </font>
             </TextField>
-            <TextField id="tf_CMND" fx:id="txtCMND">
+            <TextField id="tf_CMND" fx:id="txtSoCMND">
                <font>
                   <Font size="15.0" />
                </font>

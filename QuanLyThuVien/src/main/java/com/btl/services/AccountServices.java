@@ -45,7 +45,7 @@ public class AccountServices {
     public int getAccountId() throws SQLException {
         int accId = 0;
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT ifn    ull(MAX(id),0) FROM account";
+            String sql = "SELECT ifnull(MAX(id),0) FROM account";
             PreparedStatement stm = conn.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
