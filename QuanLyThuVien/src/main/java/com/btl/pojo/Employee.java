@@ -9,15 +9,25 @@ package com.btl.pojo;
  * @author DTS
  */
 public class Employee {
-    public Employee(){
-        
+
+    public Employee() {
+
     }
-    
+
     private int employeeId;
     private String employeeName;
     private String phone;
     private String cmnd;
     private int accountId;
+
+    public Employee(int employeeId, String employeeName, String phone, String cmnd, int accountId) {
+        this.employeeId = employeeId;
+        this.employeeName = employeeName;
+        this.phone = phone;
+        this.cmnd = cmnd;
+        this.accountId = accountId;
+
+    }
 
     public int getEmployeeId() {
         return employeeId;

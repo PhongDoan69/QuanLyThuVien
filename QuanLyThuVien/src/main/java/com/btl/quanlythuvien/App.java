@@ -25,7 +25,7 @@ public class App extends Application {
         try {
             scene = new Scene(fxmlLoader.load());
         } catch (IOException ex) {
-            Logger.getLogger(DangNhapController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GiaoDienKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
         }
         stage = new Stage();
         stage.setScene(scene);

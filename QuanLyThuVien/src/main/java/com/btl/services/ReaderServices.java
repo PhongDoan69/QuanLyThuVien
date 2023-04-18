@@ -102,7 +102,7 @@ public class ReaderServices {
     public Reader getKhachHangbyAcc(int maAcc) throws SQLException {
         Reader s = null;
         try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM khachhang Where MaAcc = ?";
+            String sql = "SELECT * FROM reader Where id = ?";
             PreparedStatement stm = conn.prepareStatement(sql);
             stm.setString(1, Integer.toString(maAcc));
             ResultSet rs = stm.executeQuery();
@@ -137,7 +137,7 @@ public class ReaderServices {
 
     public void deleteReader(int readerId) throws SQLException {
         try (Connection cnn = JdbcUtils.getConn()) {
-            String sql = "DELETE FROM account WHERE (MaAccount = id);";
+            String sql = "DELETE FROM account WHERE (id = ?);";
 
             PreparedStatement stm2 = cnn.prepareStatement(sql);
             stm2.setInt(1, readerId);

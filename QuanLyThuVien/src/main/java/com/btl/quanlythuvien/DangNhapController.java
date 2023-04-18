@@ -114,13 +114,22 @@ public class DangNhapController implements Initializable {
     }
 
     public void btnDangKy(ActionEvent event) throws IOException {
-
+        if (cbQuyenTruyCap.getValue() == "Độc Giả"){
+            
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("DangKyKhachHang.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setTitle("Đăng Ký");
-        stage.show();
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Đăng Ký");
+            stage.show();
+        }else {
+            FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("DangKyNhanVien.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Đăng Ký");
+            stage.show();
+        }
     }
 
     public void btnDangNhap(ActionEvent event) throws SQLException, IOException {
