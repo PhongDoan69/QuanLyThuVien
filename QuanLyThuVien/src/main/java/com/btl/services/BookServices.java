@@ -19,20 +19,21 @@ import java.sql.Date;
  * @author DTS
  */
 public class BookServices {
-    public List<Book> getListBook(String kw) throws SQLException
-    {
+
+    public List<Book> getListBook(String kw) throws SQLException {
         List<Book> Books = new ArrayList<>();
-        try(Connection conn = JdbcUtils.getConn()){
+        try (Connection conn = JdbcUtils.getConn()) {
             String sql = "SELECT * FROM book";
+            if(kw != null && !kw.isEmpty())
+                sql +=  " AND (id like concat('%', ?, '%') OR book_name like concat('%', ?, '%')) ";
             
             PreparedStatement stm = conn.prepareStatement(sql);
-            if(kw != null && !kw.isEmpty())
-            {
+            if (kw != null && !kw.isEmpty()) {
                 stm.setString(1, kw);
                 stm.setString(2, kw);
-            }        
+            }
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Book b = new Book();
                 b.setBookId(rs.getInt("id"));
                 b.setBookName(rs.getString("book_name"));
@@ -50,4 +51,28 @@ public class BookServices {
         }
         return Books;
     }
+
+    public int getCountBook(String kw) throws SQLException {
+        int count = 0;
+        try (Connection conn = JdbcUtils.getConn()) {
+            String sql = "SELECT COUNT(*) FROM book";
+
+            if (kw != null && !kw.isEmpty()) {
+                sql += " WHERE book_name LIKE ? OR author LIKE ?";
+            }
+
+            PreparedStatement stm = conn.prepareStatement(sql);
+            if (kw != null && !kw.isEmpty()) {
+                stm.setString(1, "%" + kw + "%");
+                stm.setString(2, "%" + kw + "%");
+            }
+            ResultSet rs = stm.executeQuery();
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        }
+        return count;
+    }
+    
+    
 }

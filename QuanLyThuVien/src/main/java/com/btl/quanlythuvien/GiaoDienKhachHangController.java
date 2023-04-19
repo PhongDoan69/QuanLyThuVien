@@ -69,6 +69,22 @@ public class GiaoDienKhachHangController implements Initializable {
             }
 
         });
+//        imgThongTinDatSach.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+//            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("FTiecDaDat.fxml"));
+//            try {
+//                Parent d = loader.load();
+//                Scene scene = new Scene(d);
+//                FTiecDaDatController controller = loader.getController();
+//                controller.LoadTabDatTiec(k);
+//                stage.setScene(scene);
+//            } catch (IOException ex) {
+//                Logger.getLogger(FGiaoDienKHController.class.getName()).log(Level.SEVERE, null, ex);
+//            } catch (SQLException ex) {
+//                Logger.getLogger(FGiaoDienKHController.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
     }
 
     public Reader getR() {
