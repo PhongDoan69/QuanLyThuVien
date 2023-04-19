@@ -36,9 +36,9 @@ public class ReaderServices {
             }
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Reader s = new Reader(rs.getInt("id"), rs.getString("readerName"), rs.getString("gender"),
-                        rs.getDate("dob"), rs.getString("role"), rs.getString("position"), rs.getDate("dateOfCallCard"),
-                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowingAvailability"));
+                Reader s = new Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
+                        rs.getDate("date_of_birth"), rs.getString("reader_role"), rs.getString("position"), rs.getDate("date_of_call_card"),
+                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowing_availability"));
                 Readers.add(s);
             }
             return Readers;
@@ -78,13 +78,13 @@ public class ReaderServices {
             stm.setString(9, a.getAddress());
             stm.setString(10, a.getPhone());
             stm.setInt(11, a.getBorrowingAvailability());
-            stm.setInt(12, a.getAccountId_Reader() );
+            stm.setInt(12, a.getAccountId_Reader());
 
             stm.executeUpdate();
         }
     }
 
-    public Reader getReaderById(int readerId) throws SQLException {
+    public Reader getReaderByReaderId(int readerId) throws SQLException {
         Reader s = null;
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "SELECT * FROM reader Where id = ?";
@@ -92,47 +92,12 @@ public class ReaderServices {
             stm.setString(1, Integer.toString(readerId));
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-               s = new  Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
-                        rs.getDate("date_of_birth"), rs.getString("reader_role"), rs.getString("position"), rs.getDate("date_of_call_card"),
-                        rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowing_availability")); }
-        }
-        return s;
-    }
-
-    public Reader getReaderByAcc(int maAcc) throws SQLException {
-        Reader s = null;
-        try (Connection conn = JdbcUtils.getConn()) {
-            String sql = "SELECT * FROM reader Where id = ?";
-            PreparedStatement stm = conn.prepareStatement(sql);
-            stm.setString(1, Integer.toString(maAcc));
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-               s = new  Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
+                s = new Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
                         rs.getDate("date_of_birth"), rs.getString("reader_role"), rs.getString("position"), rs.getDate("date_of_call_card"),
                         rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowing_availability"));
             }
         }
         return s;
-    }
-
-    public void updateReader(Reader k) throws SQLException {
-        try (Connection conn = JdbcUtils.getConn()) {
-            PreparedStatement stm = conn.prepareStatement("UPDATE reader\n"
-                    + "set id = ?, reader_name = ?, gender = ?, date_of_birth = ?, reader_role = ?, position = ? ,date_of_call_card = ?, email = ?, address = ?, phone = ?,borrowing_availability= ?, account_id =? ");
-            stm.setInt(1, k.getReaderId());
-            stm.setString(2, k.getReaderName());
-            stm.setString(3, k.getGender());
-            stm.setDate(4, (java.sql.Date) k.getDob());
-            stm.setString(5, k.getRole());
-            stm.setString(6, k.getPosition());
-            stm.setDate(7, (java.sql.Date) k.getDateOfCallCard());
-            stm.setString(8, k.getEmail());
-            stm.setString(9, k.getAddress());
-            stm.setString(10, k.getPhone());
-            stm.setInt(11, k.getBorrowingAvailability());
-            stm.setInt(12, k.getBorrowingAvailability());
-            stm.executeUpdate();
-        }
     }
 
     public void deleteReader(int readerId) throws SQLException {
@@ -156,11 +121,35 @@ public class ReaderServices {
             if (!rs.next()) {
                 return null;
             } else {
-                s = new  Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
+                s = new Reader(rs.getInt("id"), rs.getString("reader_name"), rs.getString("gender"),
                         rs.getDate("date_of_birth"), rs.getString("reader_role"), rs.getString("position"), rs.getDate("date_of_call_card"),
                         rs.getString("email"), rs.getString("address"), rs.getString("phone"), rs.getInt("borrowing_availability"));
             }
         }
         return s;
     }
+    
+    
+    public void updateReader(Reader r) throws SQLException {
+        try (Connection conn = JdbcUtils.getConn()) {
+            PreparedStatement stm = conn.prepareStatement("UPDATE reader\n"
+                    + "set id = ?, reader_name = ?, gender = ?, date_of_birth = ?, reader_role = ?, position = ? ,date_of_call_card = ?, email = ?, address = ?, phone = ?,borrowing_availability= ?, account_id =? ");
+            stm.setInt(1, r.getReaderId());
+            stm.setString(2, r.getReaderName());
+            stm.setString(3, r.getGender());
+            stm.setDate(4, (java.sql.Date) r.getDob());
+            stm.setString(5, r.getRole());
+            stm.setString(6, r.getPosition());
+            stm.setDate(7, (java.sql.Date) r.getDateOfCallCard());
+            stm.setString(8, r.getEmail());
+            stm.setString(9, r.getAddress());
+            stm.setString(10, r.getPhone());
+            stm.setInt(11, r.getBorrowingAvailability());
+            stm.setInt(12, r.getAccountId_Reader());
+            stm.executeUpdate();
+        }
+    }
+
+
+
 }

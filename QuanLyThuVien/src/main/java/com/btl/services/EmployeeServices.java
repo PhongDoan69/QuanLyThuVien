@@ -44,6 +44,7 @@ public class EmployeeServices {
             stm.setString(3, e.getPhone());
             stm.setString(4, e.getCmnd());
             stm.setInt(5, e.getAccountId());
+            
             stm.executeUpdate();
         }
     }
@@ -63,11 +64,11 @@ public class EmployeeServices {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 Employee e = new Employee(
-                        rs.getInt("employeeId"),
-                        rs.getString("employeeName"),
+                        rs.getInt("id"),
+                        rs.getString("employee_name"),
                         rs.getString("phone"),
                         rs.getString("cmnd"),
-                        rs.getInt("accountId"));
+                        rs.getInt("account_id"));
                 employees.add(e);
             }
         }
@@ -115,12 +116,12 @@ public class EmployeeServices {
         }
         return e;
     }
-    public void deleteEmployee(int readerId) throws SQLException {
+    public void deleteEmployee(int employeeId) throws SQLException {
         try (Connection cnn = JdbcUtils.getConn()) {
             String sql = "DELETE FROM employee WHERE (id = ?);";
 
             PreparedStatement stm2 = cnn.prepareStatement(sql);
-            stm2.setInt(1, readerId);
+            stm2.setInt(1, employeeId);
             stm2.execute();
         }
     }

@@ -116,4 +116,17 @@ public class AccountServices {
         }
         return d;
     }
+     public void deleteAccount(int maAcc) throws SQLException {
+        try (Connection cnn = JdbcUtils.getConn()) {
+            String sql = "DELETE FROM account WHERE (id = ?);";
+            PreparedStatement stm1 = cnn.prepareStatement("call delete_account(?)");
+            PreparedStatement stm2 = cnn.prepareStatement(sql);
+             stm1.setInt(1, maAcc);
+            stm2.setInt(1, maAcc);
+            
+           
+            stm1.executeUpdate();
+            stm2.executeUpdate();
+        }
+    }
 }
