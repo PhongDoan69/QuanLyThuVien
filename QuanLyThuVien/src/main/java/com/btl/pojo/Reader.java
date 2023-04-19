@@ -25,7 +25,6 @@ public class Reader {
     private String address;
     private String phone;
     private int borrowingAvailability;
-    private int instock;
     //Khoa ngoại 
     private int AccountId_Reader;
 
@@ -58,13 +57,7 @@ public class Reader {
 
     }
 
-    public int getInstock() {
-        return instock;
-    }
 
-    public void setInstock(int instock) {
-        this.instock = instock;
-    }
 
     public void setReaderId(int readerId) {
         this.readerId = readerId;
