@@ -24,13 +24,16 @@ public class BookServices {
         List<Book> Books = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
             String sql = "SELECT * FROM book";
-            if(kw != null && !kw.isEmpty())
-                sql +=  " AND (id like concat('%', ?, '%') OR book_name like concat('%', ?, '%')) ";
-            
+            if (kw != null && !kw.isEmpty()) {
+                sql += " WHERE (book_name LIKE CONCAT('%', ?, '%') OR author LIKE CONCAT('%', ?, '%') OR publish_year LIKE CONCAT('%', ?, '%') OR book_category LIKE CONCAT('%', ?, '%'))";
+            }
             PreparedStatement stm = conn.prepareStatement(sql);
             if (kw != null && !kw.isEmpty()) {
                 stm.setString(1, kw);
                 stm.setString(2, kw);
+                stm.setString(3, kw);
+                stm.setString(4, kw);
+
             }
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -73,6 +76,45 @@ public class BookServices {
         }
         return count;
     }
+
+    public Book getBookByBookId(int bookId) {
+        try (Connection conn = JdbcUtils.getConn()) {
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM book WHERE id = ?");
+            stmt.setInt(1, bookId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Book b = new Book();
+                b.setBookId(rs.getInt("id"));
+                b.setBookName(rs.getString("book_name"));
+                b.setBookCategory(rs.getString("book_category"));
+                b.setPublish(rs.getString("publish"));
+                b.setPublishYear(rs.getInt("publish_year"));
+                b.setEntryDate(rs.getDate("entry_date"));
+                b.setBookPosition(rs.getString("book_position"));
+                b.setBookDescription(rs.getString("book_description"));
+                b.setInStock(rs.getInt("instock"));
+                b.setAuthor(rs.getString("author"));
+                return b;
+            } else {
+                return null;
+            }
+        } catch (SQLException e) {
+            return null;
+        }
+    }
     
-    
+//    public void updateBook(int bookId){
+//        try (Connection cnn = JdbcUtils.getConn()) {
+//            
+//            String sql = "DELETE FROM book WHERE (id = ?);";
+//            PreparedStatement stm1 = cnn.prepareStatement("call delete_account(?)");
+//            PreparedStatement stm2 = cnn.prepareStatement(sql);
+//             stm1.setInt(1, maAcc);
+//            stm2.setInt(1, maAcc);
+//            
+//           
+//            stm1.executeUpdate();
+//            stm2.executeUpdate();
+//        }
+//    }
 }

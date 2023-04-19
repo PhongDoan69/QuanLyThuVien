@@ -75,7 +75,7 @@ public class DatSachController implements Initializable {
     TextField txtCMND;
     @FXML
     TextField txtSDT;
-    
+
     @FXML
     TextField txtSoLuongXN;
     @FXML
@@ -87,6 +87,7 @@ public class DatSachController implements Initializable {
     Reader r = App.getCurR();
     public boolean flag = false;
     private int maCC;
+    int t = 0;
 
     /**
      * Initializes the controller class.
@@ -95,8 +96,8 @@ public class DatSachController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)  {
-        if(this.r==null){
+    public void initialize(URL url, ResourceBundle rb) {
+        if (this.r == null) {
             this.r = new Reader();
         }
         Reader r = App.getCurR();
@@ -257,37 +258,47 @@ public class DatSachController implements Initializable {
         return tongSoLuong;
     }
 
-    public void addVaoTabSachDaChon(ActionEvent event) throws SQLException {
+    public void addVaoTabSachDaChon(ActionEvent event) throws SQLException, Exception {
         try {
             int maSach = Integer.parseInt(txtMaSach.getText());
             int soLuong = Integer.parseInt(txtSoLuong.getText());
-            
-            Sach sachMoi = new Sach(maSach, soLuong);
-            boolean sachDaTonTai = false;
-            for (Sach sach : danhSachSach) {
-                if (sach.getMaSach() == sachMoi.getMaSach()) {
-                    sachDaTonTai = true;
-                    break;
-                }
+            if (parseInt(txtSoLuong.getText()) <= 0) {
+                throw new NumberFormatException();
             }
-            if (!sachDaTonTai) {
-                if ((parseInt(this.txtSoLuong.getText()) + parseInt(this.lbTongSoSach.getText())) > 5) {
-                    Utils.getBox("Khong duoc muon qua 5 cuon sach!", Alert.AlertType.INFORMATION).show();
-                    
-                }
-                else{
-                danhSachSach.add(sachMoi);
-                tvSachDaChon.setItems(danhSachSach);
-                this.lbTongSoSach.setText(String.valueOf(tinhTongSoLuongSach(danhSachSach)));
-                Utils.getBox("Them Thanh Cong!", Alert.AlertType.INFORMATION).show();
-                this.txtMaSach.clear();
-                this.txtSoLuong.clear();
-                }
+            BookServices b = new BookServices();
+            if (parseInt(txtSoLuong.getText()) > b.getBookByBookId(Integer.parseInt(txtMaSach.getText())).getInStock()) {
+                Utils.getBox("Số lượng sách trong kho không đủ", Alert.AlertType.INFORMATION).show();
             } else {
-                Utils.getBox("Sách đã có trong danh sách sách đa chọn của bạn!", Alert.AlertType.INFORMATION).show();
+                Sach sachMoi = new Sach(maSach, soLuong);
+                boolean sachDaTonTai = false;
+                for (Sach sach : danhSachSach) {
+                    if (sach.getMaSach() == sachMoi.getMaSach()) {
+                        sachDaTonTai = true;
+                        break;
+                    }
+                }
+                if (!sachDaTonTai) {
+                    if ((parseInt(this.txtSoLuong.getText()) + parseInt(this.lbTongSoSach.getText())) > 5) {
+                        Utils.getBox("Không được mượn quá 5 cuốn sách!", Alert.AlertType.INFORMATION).show();
+
+                    } else {
+                        danhSachSach.add(sachMoi);
+                        t = tinhTongSoLuongSach(danhSachSach);
+                        tvSachDaChon.setItems(danhSachSach);
+                        this.lbTongSoSach.setText(Integer.toString(t));
+                        Utils.getBox("Thêm thành Công!", Alert.AlertType.INFORMATION).show();
+                        this.txtMaSach.clear();
+                        this.txtSoLuong.clear();
+                    }
+                } else {
+                    Utils.getBox("Sách đã có trong danh sách sách đã chọn của bạn!", Alert.AlertType.INFORMATION).show();
+                }
             }
+
         } catch (NumberFormatException ex) {
-            Utils.getBox("Vui lòng chọn Sach để thêm!", Alert.AlertType.INFORMATION).show();
+            Utils.getBox("Không được để giá trị 0!", Alert.AlertType.INFORMATION).show();
+        } catch (Exception ex) {
+            Utils.getBox(ex.getMessage(), Alert.AlertType.INFORMATION).show();
         }
     }
 
@@ -309,26 +320,25 @@ public class DatSachController implements Initializable {
             if (parseInt(txtSoLuong.getText()) <= 0) {
                 throw new NumberFormatException();
             }
-            if (parseInt(txtSoLuong.getText()) > 100) {
-                throw new Exception("Số lượng món ăn không được vượt quá 100");
+            BookServices b = new BookServices();
+            if (parseInt(txtSoLuong.getText()) > b.getBookByBookId(Integer.parseInt(txtMaSach.getText())).getInStock()) {
+                throw new Exception("Số lượng sách trong kho không đủ đáp ứng");
             }
 
-//                if(s.getDatMonAn(maTiec, d.getMaMA()) != null){
             if ("".equals(txtSoLuong.getText().trim())) {
-                throw new Exception("Vui lòng nhập số lượng sach");
+                throw new Exception("Vui lòng nhập số lượng sách");
             }
             int maSach = Integer.parseInt(txtMaSach.getText());
             int soLuongMoi = Integer.parseInt(txtSoLuong.getText());
             capNhatSach(maSach, soLuongMoi, danhSachSach);
             tvSachDaChon.refresh();
-            this.lbTongSoSach.setText(String.valueOf(tinhTongSoLuongSach(danhSachSach)));
+            t = tinhTongSoLuongSach(danhSachSach);
+            this.lbTongSoSach.setText(String.valueOf(t));
+            this.txtSoLuongXN.setText(Integer.toString(t));
             this.txtMaSach.clear();
             this.txtSoLuong.clear();
             Utils.getBox("Cập nhật thành công!", Alert.AlertType.INFORMATION).show();
-//                    }
-//                else{
-//                    Utils.getBox("Món ăn này không nằm trong thực đơn của bạn!", Alert.AlertType.INFORMATION).show();
-//                }
+
         } catch (NumberFormatException ex) {
             Utils.getBox("Vui lòng nhập đúng kiểu dữ liệu!", Alert.AlertType.INFORMATION).show();
         } catch (Exception ex) {
@@ -351,30 +361,33 @@ public class DatSachController implements Initializable {
         int maSach = Integer.parseInt(txtMaSach.getText());
         xoaSach(maSach, danhSachSach);
         tvSachDaChon.setItems(danhSachSach);
-        this.lbTongSoSach.setText(String.valueOf(tinhTongSoLuongSach(danhSachSach)));
+        t = tinhTongSoLuongSach(danhSachSach);
+        this.lbTongSoSach.setText(String.valueOf(t));
+        this.txtSoLuongXN.setText(Integer.toString(t));
         this.txtMaSach.clear();
         this.txtSoLuong.clear();
         Utils.getBox("Xóa thành công!", Alert.AlertType.INFORMATION).show();
     }
-    public void xacNhan(ActionEvent event) throws SQLException, ParseException, Exception {       
-            CallCard cc = new CallCard();
-            DatSachServices dds = new DatSachServices();
-            cc.setCallCardId(cc.getCallCardId());
-            cc.setReaderId(this.r.getReaderId());
-            cc.setDateGetBook(java.sql.Date.valueOf(LocalDate.now().plusDays(2)));
-            cc.setReturnDate(java.sql.Date.valueOf(LocalDate.now().plusDays(30)));
-            dds.addCallCard(cc);
-            CallCardDetail ccd = new CallCardDetail();
-            CallCardDetailServices ccds = new CallCardDetailServices();
-            for (Sach sach : danhSachSach) {
+
+    public void xacNhan(ActionEvent event) throws SQLException, ParseException, Exception {
+        CallCard cc = new CallCard();
+        DatSachServices dds = new DatSachServices();
+        cc.setCallCardId(cc.getCallCardId());
+        cc.setReaderId(this.r.getReaderId());
+        cc.setDateGetBook(java.sql.Date.valueOf(LocalDate.now().plusDays(2)));
+        cc.setReturnDate(java.sql.Date.valueOf(LocalDate.now().plusDays(30)));
+        dds.addCallCard(cc);
+        CallCardDetail ccd = new CallCardDetail();
+        CallCardDetailServices ccds = new CallCardDetailServices();
+        for (Sach sach : danhSachSach) {
             ccd.setCallCardDetailId(ccds.getMaxCallCardDetail());
             ccd.setBookId(sach.maSach);
             ccd.setCallCardId(maCC);
             ccd.setQuantity(sach.soLuong);
             ccds.addCallCardDetail(ccd);
-        }          
-            Utils.getBox("Thêm thành công!", Alert.AlertType.INFORMATION).show();       
-    }  
+        }
+        Utils.getBox("Thêm thành công!", Alert.AlertType.INFORMATION).show();
+    }
 
     public void loadTabXacNhan() throws SQLException {
         DatSachServices ds = new DatSachServices();
@@ -384,6 +397,6 @@ public class DatSachController implements Initializable {
         this.txtCMND.setText("1111111111");
         this.txtSDT.setText(this.r.getPhone());
         this.lbMPM.setText(Integer.toString(maCC));
-        this.txtSoLuongXN.setText(String.valueOf(this.lbTongSoSach));
+        this.txtSoLuongXN.setText(Integer.toString(t));
     }
 }

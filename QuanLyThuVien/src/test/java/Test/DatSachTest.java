@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Test;
-
 import com.btl.pojo.CallCard;
 import com.btl.pojo.CallCardDetail;
 import com.btl.services.AccountServices;
@@ -15,37 +14,36 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.time.LocalDateTime;
-
 /**
  *
  * @author Admin
  */
 public class DatSachTest {
-
     DatSachServices DSSV;
 
-    int acc = 16;
-
-//    @Test
-//    //Test đặt sách
-//    public void testDatSach() throws SQLException {
-//        DSSV = new DatSachServices();
-//        CallCard cc = new CallCard();
-//        cc.setCallCardId(5);
-//
-//        Date currentDate = new Date(System.currentTimeMillis());
-//        LocalDate localDate = currentDate.toLocalDate().plusMonths(6);
-//        Date next6MonthDate = Date.valueOf(localDate);
-//        cc.setDateGetBook(currentDate);
-//        cc.setReturnDate(next6MonthDate);
-//        cc.setEmployeeId(1);
-//        cc.setReaderId(3);
-//
-//        int a = DSSV.getListCallCard(acc).size();
-//        DSSV.addCallCard(cc);
-//
-//        Assertions.assertNotNull( DSSV.getListCallCard(acc));
-//    }
+    int acc = 20;
     
+    
+    @Test
+    //Test đặt tiệc
+    public void testDatSach() throws SQLException{
+//        datTiecSV = new DatTiecServices();
+//        hoaDonSV = new HoaDonServices();
+//        DatTiec d = new DatTiec();
+//        d.setMaTiec(maTiec);
+//        d.setMaKH(2);
+//        d.setNgayToChuc(java.sql.Date.valueOf(LocalDate.now()));
+//        d.setNgayDat(java.sql.Date.valueOf(LocalDate.now()));
+//        d.setSoLuongBan(10);
+//        d.setSoLuongKhach(100);
+//        d.setTenTiec("Tiệc cưới");
+//        d.setMaSanh(1);
+//        d.setBuoi("Sáng");
+//        int a = datTiecSV.getListDatTiec(null).size();
+//        datTiecSV.addDatTiec(d);
+//        HoaDon h = new HoaDon();
+//        h.setMaTiec(maTiec);
+//        hoaDonSV.addHoaDon(h);
+//        Assertions.assertEquals(a + 1, datTiecSV.getListDatTiec(null).size());
+    }
 }
