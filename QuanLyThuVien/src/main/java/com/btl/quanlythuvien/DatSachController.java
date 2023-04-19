@@ -95,7 +95,11 @@ public class DatSachController implements Initializable {
      * @param rb
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle rb)  {
+        if(this.r==null){
+            this.r = new Reader();
+        }
+        Reader r = App.getCurR();
         try {
             this.loadTabXacNhan();
         } catch (SQLException ex) {

@@ -21,7 +21,7 @@
                 <Font size="31.0" />
             </font>
         </Label>
-        <HBox layoutY="103.0" prefHeight="158.0" prefWidth="602.0">
+        <HBox layoutY="103.0" prefHeight="150.0" prefWidth="602.0">
             <children>
                 <ImageView fx:id="imgDatSach" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>

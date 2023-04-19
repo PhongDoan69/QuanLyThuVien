@@ -114,6 +114,7 @@ public class DangNhapController implements Initializable {
     }
 
     public void btnDangKy(ActionEvent event) throws IOException {
+        
         if (cbQuyenTruyCap.getValue() == "Độc Giả"){
             
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("DangKyKhachHang.fxml"));

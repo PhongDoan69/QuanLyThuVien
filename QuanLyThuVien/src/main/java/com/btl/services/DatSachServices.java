@@ -23,7 +23,7 @@ import javafx.scene.control.Alert;
  * @author Admin
  */
 public class DatSachServices {
-
+    
     public int getMaxCallCard() throws SQLException {
         int maxID = 0;
         try (Connection conn = JdbcUtils.getConn()) {
@@ -95,16 +95,16 @@ public class DatSachServices {
     public List<CallCard> getListCallCard(int maCC) throws SQLException {
         List<CallCard> CallCards = new ArrayList<>();
         try (Connection conn = JdbcUtils.getConn()) {
-            PreparedStatement stm = conn.prepareStatement("SELECT * FROM call_dard WHERE id = ?");
+            PreparedStatement stm = conn.prepareStatement("SELECT * FROM call_card WHERE id = ?");
             stm.setInt(1, maCC);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 CallCard cc = new CallCard();
-                cc.setCallCardId(rs.getInt("callCardId"));
-                cc.setDateGetBook(rs.getDate("dateGetBook"));
-                cc.setReturnDate(rs.getDate("returnDate"));
-                cc.setEmployeeId(rs.getInt("employeeId"));
-                cc.setReaderId(rs.getInt("readerId"));
+                cc.setCallCardId(rs.getInt("id"));
+                cc.setDateGetBook(rs.getDate("date_get_book"));
+                cc.setReturnDate(rs.getDate("return_date"));
+                cc.setEmployeeId(rs.getInt("employee_id"));
+                cc.setReaderId(rs.getInt("reader_id"));
                 CallCards.add(cc);
             }
         }

@@ -78,6 +78,27 @@ public class CallCardDetailServices {
         return ccds;
     }
     
+    public List<CallCardDetail> getListCallCardDetailByReaderId(int readerId) throws SQLException
+    {
+        List<CallCardDetail> ccds = new ArrayList<>();
+        try(Connection conn = JdbcUtils.getConn()){
+            String sql = "SELECT * FROM call_card_detail WHERE call_card_id = ? ";
+            PreparedStatement stm = conn.prepareStatement(sql);
+            stm.setInt(1, readerId);     
+            ResultSet rs = stm.executeQuery();
+            while(rs.next()){
+                CallCardDetail ccd = new CallCardDetail();
+                ccd.setCallCardDetailId(rs.getInt("id"));
+                ccd.setQuantity(rs.getInt("quantity"));
+                ccd.setBookId(rs.getInt("book_id"));
+                ccd.setCallCardId(rs.getInt("call_card_id"));
+                ccds.add(ccd);
+            }
+        }
+        return ccds;
+    }
+    
+    
     public CallCardDetail getCallCardDetail(int callCardId, int bookId) throws SQLException
     {
         CallCardDetail ccd = new CallCardDetail();

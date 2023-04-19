@@ -8,6 +8,7 @@ import com.btl.conf.Utils;
 import com.btl.pojo.Reader;
 import com.btl.services.ReaderServices;
 import com.btl.services.DatSachServices;
+import com.btl.services.ThongTinDatSachServices;
 
 import java.io.IOException;
 import java.net.URL;
@@ -69,22 +70,26 @@ public class GiaoDienKhachHangController implements Initializable {
             }
 
         });
-//        imgThongTinDatSach.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
-//            Stage stage = (Stage)((Node) event.getSource()).getScene().getWindow();
-//            FXMLLoader loader = new FXMLLoader();
-//            loader.setLocation(getClass().getResource("FTiecDaDat.fxml"));
-//            try {
-//                Parent d = loader.load();
-//                Scene scene = new Scene(d);
-//                FTiecDaDatController controller = loader.getController();
-//                controller.LoadTabDatTiec(k);
-//                stage.setScene(scene);
-//            } catch (IOException ex) {
-//                Logger.getLogger(FGiaoDienKHController.class.getName()).log(Level.SEVERE, null, ex);
-//            } catch (SQLException ex) {
-//                Logger.getLogger(FGiaoDienKHController.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        });
+        imgThongTinDatSach.addEventHandler(MouseEvent.MOUSE_CLICKED, (MouseEvent event) -> {
+            ThongTinDatSachServices dsphieuMuon = new ThongTinDatSachServices();
+            try {
+                Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                FXMLLoader loader = new FXMLLoader();
+                loader.setLocation(getClass().getResource("ThongTinDatSach.fxml"));
+                Parent d = loader.load();
+                Scene scene = new Scene(d);
+                ThongTinDatSachController controller = loader.getController();
+                try {
+                    controller.LoadTabThongTinPhieuMuon(r);
+                } catch (SQLException ex) {
+                    Logger.getLogger(GiaoDienKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                stage.setScene(scene);
+            } catch (IOException ex) {
+                Logger.getLogger(GiaoDienKhachHangController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
     }
 
     public Reader getR() {

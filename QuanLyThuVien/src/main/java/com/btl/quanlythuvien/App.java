@@ -20,7 +20,7 @@ public class App extends Application {
     private static Scene scene;
 
     private static Account curAcc;
-        private static Reader curR;
+    private static Reader curR;
 
 
     @Override
@@ -69,5 +69,13 @@ public class App extends Application {
      */
     public static void setCurR(Reader aCurR) {
         curR = aCurR;
+    }
+
+    public static Scene getScene() {
+        return scene;
+    }
+
+    public static void setScene(Scene scene) {
+        App.scene = scene;
     }
 }
