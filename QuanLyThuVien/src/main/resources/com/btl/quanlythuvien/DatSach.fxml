@@ -129,11 +129,11 @@
                            <children>
                               <Text fx:id="txtMaPhieuMuon" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã phiếu mượn" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Số lượng " />
-                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày lấy sách" />
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hạn chót lấy sách" />
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" />
                            </children>
                         </VBox>
-                        <VBox layoutX="498.0" layoutY="30.0" prefHeight="256.0" prefWidth="144.0" spacing="25.0">
+                        <VBox layoutX="498.0" layoutY="30.0" prefHeight="256.0" prefWidth="144.0" spacing="26.0">
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" />
                               <Label fx:id="lbMPM" text="Label">

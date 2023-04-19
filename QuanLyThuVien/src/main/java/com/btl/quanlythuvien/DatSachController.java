@@ -14,6 +14,7 @@ import com.btl.services.CallCardDetailServices;
 import com.btl.services.DatSachServices;
 import static java.lang.Integer.parseInt;
 import java.net.URL;
+import java.sql.Date;
 import static java.sql.JDBCType.NULL;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -75,7 +76,8 @@ public class DatSachController implements Initializable {
     TextField txtCMND;
     @FXML
     TextField txtSDT;
-
+    
+    @FXML Label lbHanLay;
     @FXML
     TextField txtSoLuongXN;
     @FXML
@@ -203,6 +205,11 @@ public class DatSachController implements Initializable {
         this.loadTvSachDaChon();
         MouseClickTvSachDaChon();
         SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy");
+        Date currentDate = new Date(System.currentTimeMillis());
+                        LocalDate localDate = currentDate.toLocalDate().plusDays(2);
+                        Date next2Days = Date.valueOf(localDate);
+                        r.setDateOfCallCard(next2Days);
+        this.lbHanLay.setText(String.valueOf(next2Days));
         this.txtNgayDat.setText(d.format(java.sql.Date.valueOf(LocalDate.now())));
         this.txtHanTra.setText(d.format(java.sql.Date.valueOf(LocalDate.now().plusDays(30))));
         try {

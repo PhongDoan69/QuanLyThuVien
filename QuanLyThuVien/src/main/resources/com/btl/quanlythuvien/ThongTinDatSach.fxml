@@ -10,6 +10,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="486.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.btl.quanlythuvien.ThongTinDatSachController">
    <children>
+      <TableView fx:id="tvSachDaDat" layoutX="29.0" layoutY="207.0" prefHeight="205.0" prefWidth="538.0" />
       <VBox layoutX="175.0" layoutY="69.0" prefHeight="128.0" prefWidth="110.0" spacing="25.0">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mã khách hàng" />
@@ -17,7 +18,6 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mã phiếu mượn" />
          </children>
       </VBox>
-      <TableView fx:id="tvTTPM" layoutX="29.0" layoutY="207.0" prefHeight="205.0" prefWidth="538.0" />
       <VBox layoutX="310.0" layoutY="70.0" prefHeight="109.0" prefWidth="110.0" spacing="25.0">
          <children>
             <Label fx:id="lbMaDocGia" text="Label" />
