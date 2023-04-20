@@ -25,7 +25,7 @@ public class DatSachTest {
     
     
     @Test
-    //Test đặt tiệc
+    //Test đặt sách
     public void testDatSach() throws SQLException{
 //        datTiecSV = new DatTiecServices();
 //        hoaDonSV = new HoaDonServices();
